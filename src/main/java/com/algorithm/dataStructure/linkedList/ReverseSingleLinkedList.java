@@ -21,17 +21,17 @@ public class ReverseSingleLinkedList {
     }
 
     private ListNode traverse(ListNode head) {
-        // 上一个节点
-        ListNode prev = null;
-        // 下一个节点
-        ListNode next = null;
+        // 向左节点
+        ListNode left = null;
+        // 向右节点
+        ListNode right = null;
         while (head != null) {
-            next = head.next;
-            head.next = prev;
-            prev = head;
-            head = next;
+            right = head.next;
+            head.next = left;
+            left = head;
+            head = right;
         }
-        return prev;
+        return left;
     }
 }
 
