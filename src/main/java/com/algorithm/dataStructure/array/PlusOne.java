@@ -39,38 +39,27 @@ import java.util.Arrays;
 
 public class PlusOne {
     public int[] plusOne(int[] digits) {
-        int len = digits.length;
-        int[] newDigits;
-        boolean normal = true;
-        newDigits = new int[len + 1];
-//        if (digits[len - 1] == 9 && len == 1) {
-//            normal = false;
-////            newDigits = new int[]{1, 0};
-//            return newDigits;
-//
-//        } else {
-//            newDigits = new int[len];
-//        }
-        int[] carryArr = new int[len + 1];
-        for (int i = len; i >= 0; i--) {
-//            if (normal && i == 0) {
-//                break;
-//            }
-            int sum = i == 0 ? 0 : digits[i - 1] + carryArr[i];
-            if (sum == 9) {
-                carryArr[i] = 1;
-                newDigits[i] = (sum + 1) % 10;
-            } else {
-                carryArr[i] = 0;
-                newDigits[i] = sum + 1;
+        for (int i = digits.length - 1; i >= 0; i--) {
+            digits[i] = ++digits[i];
+            int remainder = digits[i] % 10;
+            // 普通+1情况
+            if (remainder > 0) {
+                return digits;
             }
-
+            // 进位情况
+            digits[i] = 0;
         }
-        return newDigits;
+        // 进到最后一位
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
     }
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(new PlusOne().plusOne(new int[]{1, 2, 3})));
+        System.out.println(Arrays.toString(new PlusOne().plusOne(new int[]{0})));
+        System.out.println(Arrays.toString(new PlusOne().plusOne(new int[]{9})));
+        System.out.println(Arrays.toString(new PlusOne().plusOne(new int[]{9, 9})));
     }
 
 }
