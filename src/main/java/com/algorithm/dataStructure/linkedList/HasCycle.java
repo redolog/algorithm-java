@@ -78,6 +78,22 @@ public class HasCycle {
         return false;
     }
 
+    private boolean twoStepEncounterVersion2(ListNode head) {
+        if (null == head || null == head.next) {
+            return false;
+        }
+        ListNode oneStep = head;
+        ListNode twoStep = head.next;
+        while (!oneStep.equals(twoStep)) {
+            if (null == twoStep || null == twoStep.next) {
+                return false;
+            }
+            oneStep = oneStep.next;
+            twoStep = twoStep.next.next;
+        }
+        return true;
+    }
+
     private boolean cacheVersion(ListNode head) {
         if (null == head) {
             return false;
