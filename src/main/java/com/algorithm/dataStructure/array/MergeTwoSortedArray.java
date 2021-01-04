@@ -1,5 +1,7 @@
 package com.algorithm.dataStructure.array;
 
+import java.util.Arrays;
+
 /**
  * 88. 合并两个有序数组
  * 给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
@@ -32,22 +34,32 @@ package com.algorithm.dataStructure.array;
  */
 
 public class MergeTwoSortedArray {
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        // i表示1的下标，j表示2的下标
-        int i = 0, j = 0;
-        while (i < m || j < n) {
-            if (nums1[i] <= nums2[j]) {
-                // 1继续迭代，2不动，待与下一轮与1中元素对比
-                i++;
+    public void bruteForce(int[] nums1, int m, int[] nums2, int n) {
+        System.arraycopy(nums2, 0, nums1, m, n);
+        Arrays.sort(nums1);
+    }
+
+    public void back2Front(int[] nums1, int m, int[] nums2, int n) {
+        // 遍历cursor
+        int i = m + n - 1;
+        // nums1向前下标
+        m--;
+        // nums2向前下标
+        n--;
+        while (n >= 0 && m >= 0) {
+            if (nums1[m] >= nums2[n]) {
+                nums1[i] = nums1[m];
+                m--;
             } else {
-                m = ++m;
-                // 2中元素（更小）占据i位置，1其余元素后移
-                for (int i1 = m - i; i1 >= i; i1--) {
-                    nums1[i1 + 1] = nums1[i1];
-                }
-                nums1[i] = nums2[j];
-                j++;
+                nums1[i] = nums2[n];
+                n--;
             }
+            i--;
         }
+        System.arraycopy(nums2, 0, nums1, 0, n + 1);
+    }
+
+    public static void main(String[] args) {
+        new MergeTwoSortedArray().back2Front(new int[]{0, 0}, 1, new int[]{1}, 1);
     }
 }
