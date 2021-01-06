@@ -1,8 +1,7 @@
 动态规划
 
 ### Ref
-- [What is Dynamic Programming?
-](https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews/m2G1pAq0OO0#:~:text=Dynamic%20Programming%20(DP)%20is%20an,optimal%20solution%20to%20its%20subproblems.)
+- [What is Dynamic Programming](https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews/m2G1pAq0OO0#:~:text=Dynamic%20Programming%20(DP)%20is%20an,optimal%20solution%20to%20its%20subproblems.)
 - [清华学霸总结的动态规划4步曲，仅这篇动归够了](https://mp.weixin.qq.com/s/0wqHKHBKPNlLQhY20gVQGQ)
 - [原来大神都是这样学动态规划的...](https://mp.weixin.qq.com/s/uthpSrJIJQEpiU6g6z5FBg)
 
