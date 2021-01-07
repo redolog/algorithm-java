@@ -46,7 +46,7 @@ public class ValidParentheses {
         if (null == s || s.isEmpty() || s.length() % 2 != 0) {
             return false;
         }
-        return rawJudgeVersion(s);
+        return iterateInOrderVersion(s);
     }
 
     private boolean cacheParenthesesVersion(String s) {
@@ -86,6 +86,24 @@ public class ValidParentheses {
                 }
             } else {
                 stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    private boolean iterateInOrderVersion(String s) {
+        Deque<Character> stack = new LinkedList<>();
+        for (char c : s.toCharArray()) {
+            if (c == '{') {
+                stack.push('}');
+            } else if (c == '(') {
+                stack.push(')');
+            } else if (c == '[') {
+                stack.push(']');
+            } else {
+                if (stack.isEmpty() || stack.pop() != c) {
+                    return false;
+                }
             }
         }
         return stack.isEmpty();
