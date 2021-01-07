@@ -1,5 +1,8 @@
 package com.algorithm.dataStructure.stack;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * 71. 简化路径
  * 以 Unix 风格给出一个文件的绝对路径，你需要简化它。或者换句话说，将其转换为规范路径。
@@ -45,7 +48,46 @@ package com.algorithm.dataStructure.stack;
 public class SimplifyPath {
 
     public String simplifyPath(String path) {
+        if (null == path || path.length() <= 1) {
+            return path;
+        }
+        if ("/../".equals(path)) {
+            return "/";
+        }
+        Deque<String> forward = new LinkedList<>();
 
-        return "";
+        String[] nodes = path.split("/");
+        for (String node : nodes) {
+            if ("".equals(node)) {
+                continue;
+            }
+            forward.push(node);
+        }
+
+        Deque<String> back = new LinkedList<>();
+        while (!forward.isEmpty()) {
+            String node = forward.pop();
+            // 进入到 。。 往上级跳跃的逻辑，碰到. 直接略过
+            while ("..".equals(node) && !forward.isEmpty()) {
+                String step = forward.pop();
+                while (".".equals(step) && !forward.isEmpty()) {
+                    step = forward.pop();
+                }
+                node = forward.pop();
+            }
+            if (!"..".equals(node) && !".".equals(node)) {
+                back.push(node);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!back.isEmpty()) {
+            sb.append("/").append(back.pop());
+        }
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+//        new SimplifyPath().simplifyPath("/a//b////c/d//././/..");
+        System.out.println(new SimplifyPath().simplifyPath("/a/../../b/../c//.//"));
     }
 }
