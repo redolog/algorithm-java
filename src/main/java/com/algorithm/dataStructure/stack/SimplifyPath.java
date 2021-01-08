@@ -71,6 +71,9 @@ public class SimplifyPath {
                 stack.push(node);
             }
         }
+        if (stack.isEmpty()) {
+            return "/";
+        }
 
         StringBuilder ans = new StringBuilder();
         while (!stack.isEmpty()) {
