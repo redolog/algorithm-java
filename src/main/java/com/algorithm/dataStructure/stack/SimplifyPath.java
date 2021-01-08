@@ -54,36 +54,29 @@ public class SimplifyPath {
         if ("/../".equals(path)) {
             return "/";
         }
-        Deque<String> forward = new LinkedList<>();
+        Deque<String> stack = new LinkedList<>();
 
         String[] nodes = path.split("/");
         for (String node : nodes) {
-            if ("".equals(node)) {
+            if ("".equals(node) || ".".equals(node)) {
                 continue;
             }
-            forward.push(node);
+            if ("..".equals(node) && !stack.isEmpty()) {
+                // 上一次，把刚加入的元素evict
+                stack.pop();
+                continue;
+            }
+
+            if (!"..".equals(node)) {
+                stack.push(node);
+            }
         }
 
-        Deque<String> back = new LinkedList<>();
-        while (!forward.isEmpty()) {
-            String node = forward.pop();
-            // 进入到 。。 往上级跳跃的逻辑，碰到. 直接略过
-            while ("..".equals(node) && !forward.isEmpty()) {
-                String step = forward.pop();
-                while (".".equals(step) && !forward.isEmpty()) {
-                    step = forward.pop();
-                }
-                node = forward.pop();
-            }
-            if (!"..".equals(node) && !".".equals(node)) {
-                back.push(node);
-            }
+        StringBuilder ans = new StringBuilder();
+        while (!stack.isEmpty()) {
+            ans.insert(0, "/" + stack.pop());
         }
-        StringBuilder sb = new StringBuilder();
-        while (!back.isEmpty()) {
-            sb.append("/").append(back.pop());
-        }
-        return sb.toString();
+        return ans.toString();
     }
 
     public static void main(String[] args) {
