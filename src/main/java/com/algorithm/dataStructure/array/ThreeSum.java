@@ -25,15 +25,21 @@ public class ThreeSum {
             }
 
             int curr = arr[i];
+            if (curr >= targetSum) {
+                // 当前值已大于目标
+                break;
+            }
             int left = i + 1, right = len - 1;
             while (left < right) {
+                // 求和
                 int sum = curr + arr[left] + arr[right];
                 if (sum == targetSum) {
-                    List<Integer> list = new ArrayList<>();
-                    list.add(curr);
-                    list.add(arr[left]);
-                    list.add(arr[right]);
-                    ret.add(list);
+                    List<Integer> combination = new ArrayList<>();
+                    combination.add(curr);
+                    combination.add(arr[left]);
+                    combination.add(arr[right]);
+                    ret.add(combination);
+                    // 左右指针还未相遇，并且左指针下一项与当前项相等，直接跳过一级，减少时间消耗
                     while (left < right && arr[left + 1] == arr[left]) {
                         ++left;
                     }
@@ -43,8 +49,10 @@ public class ThreeSum {
                     ++left;
                     --right;
                 } else if (sum < targetSum) {
+                    // 寻找下一个大一点的数，挪动左指针
                     ++left;
                 } else {
+                    // 寻找下一个小一点的数，挪动右指针
                     --right;
                 }
             }
