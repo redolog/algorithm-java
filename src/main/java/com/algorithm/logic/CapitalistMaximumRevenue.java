@@ -49,6 +49,7 @@ public class CapitalistMaximumRevenue {
             if (actualPeopleCountToday <= 0) {
                 continue;
             }
+            people += actualPeopleCountToday;
             // 余额 = 减去花销 加每天可赚的钱
             balance = balance - cost * actualPeopleCountToday + people * workoutDaily;
         }
