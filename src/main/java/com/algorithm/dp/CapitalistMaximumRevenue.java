@@ -35,25 +35,14 @@ public class CapitalistMaximumRevenue {
         int cost = 1;
 
         for (int day = 1; day <= days; day++) {
-            // 钱不够了，下一天看看
-            if (balance < cost) {
+            // 钱不够了下一天看看 或者 赚的钱比成本低了
+            if (balance < cost || workoutDaily * (days - day + 1) <= cost) {
                 balance += people * workoutDaily;
                 continue;
             }
-            // 判断maxP几个合适：买了这几个人，只要剩余天数赚的钱高于成本即可
             // 目前余额最多能承担的人数
             int actualPeopleCountToday = balance / cost;
-            // 这些人的购买成本与剩余天数的收益做对比，收益小的时候一直减人数，减到收益大于
-            while (actualPeopleCountToday * workoutDaily * (days - day + 1) <= actualPeopleCountToday * cost) {
-                if (actualPeopleCountToday <= 0) {
-                    break;
-                }
-                --actualPeopleCountToday;
-            }
-            if (actualPeopleCountToday <= 0) {
-                balance += people * workoutDaily;
-                continue;
-            }
+            // 人数更新
             people += actualPeopleCountToday;
             // 余额 = 减去花销 加每天可赚的钱
             balance = balance - cost * actualPeopleCountToday + people * workoutDaily;
