@@ -1,4 +1,4 @@
-package com.algorithm.logic;
+package com.algorithm.dp;
 
 /**
  * Shen 是一个财主，有一天他发现自己家的后山居然是一个金矿，目测金矿采之不竭。但Shen还没高兴多久，有关部门也得知了这个消息，决定收归国有。为了弥补shen的损失，有关部门作出以下的让步，Shen 可以获得 D 天的开采权利，在D天后，才收归国有。 为了在 D 天后剩余最多的金子，Shen 可以结合以下两种方式来采金： 1. Shen 家里有不少长工，可以发动他们去采金； 2. 城门下有很多等待和地主签卖身契的穷苦人民，Shen 在每天早上，都可以选择雇佣任意多个长工。只要一次性付给他们每人一笔费用，就可以让他们成为 Shen 家里的长工，终身为 Shen 劳动采金；假设 Shen 家里初始有 P 个长工，每个长工每天可以采得 G 块金子。初始家中的剩余金子数为 M，而每个长工雇佣需要花 C 块金子。
@@ -41,12 +41,17 @@ public class CapitalistMaximumRevenue {
                 continue;
             }
             // 判断maxP几个合适：买了这几个人，只要剩余天数赚的钱高于成本即可
-            // x*workoutDaily*(days-day+1)-x*cost > 0
+            // 目前余额最多能承担的人数
             int actualPeopleCountToday = balance / cost;
-            while (actualPeopleCountToday * workoutDaily * (days - day + 1) - actualPeopleCountToday * cost <= 0) {
+            // 这些人的购买成本与剩余天数的收益做对比，收益小的时候一直减人数，减到收益大于
+            while (actualPeopleCountToday * workoutDaily * (days - day + 1) <= actualPeopleCountToday * cost) {
+                if (actualPeopleCountToday <= 0) {
+                    break;
+                }
                 --actualPeopleCountToday;
             }
             if (actualPeopleCountToday <= 0) {
+                balance += people * workoutDaily;
                 continue;
             }
             people += actualPeopleCountToday;
