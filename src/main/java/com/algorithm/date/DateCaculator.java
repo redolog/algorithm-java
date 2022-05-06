@@ -46,7 +46,7 @@ public class DateCaculator {
     }
 
     public static int dayOfYear(int year, int month, int day) {
-        if (isValidMonth(month)) {
+        if (isInvalidMonth(month)) {
             return -1;
         }
 
@@ -69,7 +69,7 @@ public class DateCaculator {
         return sumOp.getAsInt() + day;
     }
 
-    private static boolean isValidMonth(int month) {
+    private static boolean isInvalidMonth(int month) {
         return month < 1 || month > 12;
     }
 
