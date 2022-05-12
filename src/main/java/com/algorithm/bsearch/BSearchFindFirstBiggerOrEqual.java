@@ -6,7 +6,7 @@ package com.algorithm.bsearch;
  *
  * @author DragonSong  @date 2022/5/12
  */
-public class BSearchFindFirstBigger {
+public class BSearchFindFirstBiggerOrEqual {
 
     /**
      * 过程描述：
@@ -18,7 +18,7 @@ public class BSearchFindFirstBigger {
      * @param target 目标值
      * @return 找到的第一个大于等于target的值的下标
      */
-    public static int bsearchFindFirstBigger(int[] nums, int target) {
+    public static int bsearchFindFirstBiggerOrEqual(int[] nums, int target) {
 
         int low = 0;
         int high = nums.length - 1;
