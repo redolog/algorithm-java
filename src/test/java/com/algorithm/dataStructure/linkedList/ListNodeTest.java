@@ -18,4 +18,9 @@ public class ListNodeTest {
             listNode = listNode.next;
         }
     }
+
+    @Test
+    public void buildWithCycleTest() {
+        ListNode.buildWithCycle(1,3,2,0,-4);
+    }
 }
