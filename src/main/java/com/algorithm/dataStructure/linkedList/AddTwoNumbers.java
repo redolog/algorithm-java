@@ -19,24 +19,33 @@ package com.algorithm.dataStructure.linkedList;
  */
 public class AddTwoNumbers {
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode start = new ListNode(0);
-        ListNode cursor = start;
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // 当前进位值
         int carry = 0;
-        while (l1 != null || l2 != null || carry > 0) {
-            // 当前节点和+进位
-            int sum = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + carry;
-            cursor.next = new ListNode(sum >= 10 ? sum % 10 : sum);
-            // 遍历挪动
+        ListNode dummyHead = new ListNode();
+        // 当前指针
+        ListNode current = null;
+        // 迭代链表节点
+        while (l1 != null || l2 != null || carry != 0) {
+            int sum = (l1 != null ? l1.val : 0) + (l2 != null ? l2.val : 0) + carry;
+
+            if (current == null) {
+                current = new ListNode(sum % 10);
+                dummyHead.next = current;
+            } else {
+                current = current.next = new ListNode(sum % 10);
+            }
+
+            carry = sum >= 10 ? 1 : 0;
             if (l1 != null) {
                 l1 = l1.next;
             }
             if (l2 != null) {
                 l2 = l2.next;
             }
-            cursor = cursor.next;
-            carry = sum >= 10 ? 1 : 0;
         }
-        return start.next;
+
+        return dummyHead.next;
+
     }
 }

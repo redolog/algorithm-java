@@ -40,4 +40,26 @@ public class ListNode {
         result = 31 * result + (next != null ? next.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "ListNode{" +
+                "val=" + val +
+                ", next=" + next +
+                '}';
+    }
+
+    public static ListNode build(int... vals) {
+        ListNode dummy = new ListNode();
+        ListNode current = null;
+        for (int val : vals) {
+            if (current == null) {
+                dummy.next = current = new ListNode(val);
+            } else {
+                current = current.next = new ListNode(val);
+            }
+        }
+        return dummy.next;
+    }
+
 }
