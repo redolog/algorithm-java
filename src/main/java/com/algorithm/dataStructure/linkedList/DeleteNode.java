@@ -36,10 +36,11 @@ public class DeleteNode {
         while (current != null) {
             if (current.val == val) {
                 if (pre == null) {
-                    head = head.next;
-                } else {
-                    pre.next = current.next;
+                    // 删除内容命中head节点
+                    return head.next;
                 }
+                // 删除current节点
+                pre.next = current.next;
             }
             pre = current;
             current = current.next;
@@ -55,16 +56,16 @@ public class DeleteNode {
         if (head == null) {
             return null;
         }
-        if (head.val==val) {
+        if (head.val == val) {
             return head.next;
         }
 
         ListNode current = head;
-        while (current != null && current.next.val!=val) {
-            current=current.next;
+        while (current != null && current.next.val != val) {
+            current = current.next;
         }
 
-        current.next=current.next.next;
+        current.next = current.next.next;
         return head;
     }
 }

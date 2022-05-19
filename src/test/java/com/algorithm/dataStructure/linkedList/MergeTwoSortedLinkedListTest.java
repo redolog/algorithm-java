@@ -11,5 +11,9 @@ public class MergeTwoSortedLinkedListTest {
                 ListNode.build(1,1,2,3,4,4),
                 MergeTwoSortedLinkedList.mergeTwoLists(ListNode.build(1,2,4),ListNode.build(1,3,4))
         );
+        Assert.assertEquals(
+                ListNode.build(1,1,2,3,4,4),
+                MergeTwoSortedLinkedList.mergeTwoLists2(ListNode.build(1,2,4),ListNode.build(1,3,4))
+        );
     }
 }
