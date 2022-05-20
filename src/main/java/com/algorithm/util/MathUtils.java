@@ -8,6 +8,25 @@ public class MathUtils {
     private MathUtils() {
     }
 
+
+    /**
+     * 1.求整数商： c = [a/b];
+     * 2.计算模或者余数： r = a - c*b.
+     * <p>
+     * 第一步：求整数商c：
+     * ①进行求模运算c = [a/b] = -7 / 4 = -2（向负无穷方向舍入），
+     * ②进行求余运算c = [a/b] = -7 / 4 = -1（向0方向舍入）；
+     * 第二步：计算模和余数的公式相同，但因c的值不同，
+     * ①求模时：r = a - c*b =-7 - (-2)*4 = 1，
+     * ②求余时：r = a - c*b = -7 - (-1)*4 =-3。
+     *
+     * @return a mod b
+     */
+    public static int mod(int a, int b) {
+        // floorDiv 取模运算在计算c的值时，向负无穷方向舍入(floor()函数)
+        return a - Math.floorDiv(a, b) * b;
+    }
+
     /**
      * 利用辗转相除法，求得两个数的最大公因数(greatest common divisor，gcd);
      * <p>
@@ -25,11 +44,6 @@ public class MathUtils {
                 // https://baike.baidu.com/item/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97%E7%AE%97%E6%B3%95/1647675?fromtitle=%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95&fromid=4625352
                 // 计算公式gcd(a,b) = gcd(b,a mod b)。
                 : gcd(divisor, dividend % divisor);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(gcd(12, 16));
-        System.out.println(new GCDExtend().extendGCD(12, 16));
     }
 
     /**
