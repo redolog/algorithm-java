@@ -1,5 +1,7 @@
 package com.algorithm.sort;
 
+import com.algorithm.util.ArrayUtils;
+
 public class BubbleSort {
 
     /**
@@ -17,7 +19,7 @@ public class BubbleSort {
      * @param a 待排序的数组
      */
     public static void bubbleSort(int[] a) {
-        if (a == null || a.length == 1) {
+        if (ArrayUtils.dontNeedSort(a)) {
             return;
         }
         int n = a.length;
