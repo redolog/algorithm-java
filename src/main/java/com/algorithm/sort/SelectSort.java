@@ -27,21 +27,19 @@ public class SelectSort {
         if (ArrayUtils.dontNeedSort(a)) {
             return;
         }
-        int n = a.length;
-        for (int i = 0; i < n - 1; i++) {
-            // i表示当前轮数
-            int min = a[i];
-            for (int j = i; j < n; j++) {
-                // 选择右侧最小元素
-                if (a[j] < min) {
-                    min = a[j];
-                    int tmp = a[i];
-                    a[i] = a[j];
-                    a[j] = tmp;
+        // 选择排序：数组分左排序区间+右未排序区间。每一轮从右侧找出最小值，插入到左侧最末端。形成的数组为有序数组。
+        for (int i = 0; i < a.length; i++) {
+            int minIdx = i;
+            for (int j = i; j < a.length; j++) {
+                if (a[j] < a[minIdx]) {
+                    minIdx = j;
                 }
             }
-            // 找到的位置赋值：插入！！！
-//            a[i] = min;
+            if (minIdx != i) {
+                int tmp = a[minIdx];
+                a[minIdx] = a[i];
+                a[i] = tmp;
+            }
         }
     }
 }
