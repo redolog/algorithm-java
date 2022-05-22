@@ -22,5 +22,6 @@ public class ListNodeTest {
     @Test
     public void buildWithCycleTest() {
         ListNode.buildWithCycle(1,3,2,0,-4);
+        ListNode.buildWithCycle(0,1,2);
     }
 }

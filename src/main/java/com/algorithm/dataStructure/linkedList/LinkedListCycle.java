@@ -114,7 +114,7 @@ public class LinkedListCycle {
      * <p>
      * 进阶：你是否可以使用 O(1) 空间解决此题？
      */
-    public ListNode detectCycle(ListNode head) {
+    public static ListNode detectCycle(ListNode head) {
         // 这道题目如果用双指针来做，需要将快慢指针的路程关系在纸上画出来，再把环入口、相遇点分开的三端路程关系推导
         // 我还是用简单的set来做
 
@@ -134,5 +134,69 @@ public class LinkedListCycle {
             current = current.next;
         }
         return null;
+    }
+
+    // @formatter:off
+    /**
+     * 数学版本。经过作为运营的女朋友的指导，我懂了数学推导的解法。
+     * 假设我们的链表长这样：
+     *                          B <- <- <- <- <-|
+     *                          |               |
+     *                          |               |
+     * O -> x -> x -> x -> x -> A -> x -> x - > x
+     *
+     * 其中
+     * O：链表起点
+     * x：普通的中间节点
+     * A：链表环入口
+     * B：快慢指针相遇节点
+     * D：distance 表示路程
+     * s：slow 慢指针路程
+     * f：fast 快指针路程
+     * n：相遇时快指针在环内已运行的圈数
+     * a：OA
+     * b：环一圈
+     *
+     * 我们启动两个指针
+     * 慢指针：slow一次前行一步  slow=slow.next
+     * 快指针：fast一次前行两步步 fast=fast.next.next
+     *
+     * 假设现在快慢指针在B点相遇，我们可以得出：
+     * 1. 快指针路程为慢指针二倍：f=2*s
+     * 2. 快指针路程为慢指针路程（a+AB）加上n圈环路程：f=s+n*b
+     * 3. 综上1-2，可得 s=n*b，也就是相遇时，慢指针恰好走了 n圈的环 对应路程
+     *
+     * 分析：
+     * 而我们分析下，当从链表起点走到环入口的地方时，路程满足：a+n*b，n==0时则是慢指针刚好第一次经过环入口，之后便是在环内重复绕圈。
+     *
+     * 此时，根据上方3结论：慢指针恰好走了 n*b，那么只要慢指针再走 a 的路程，就到了A点。
+     *
+     * 因此，程序可以这么写：快慢指针运行，第一次相遇（B点）后，令快指针回到O点，以一步的步长前进，当两个指针再次相遇时，此时恰好是A点，即题目所求。
+     *
+     */
+    // @formatter:on
+    public static ListNode detectCycleWithMath(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        ListNode fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                fast = head;
+                break;
+            }
+        }
+        while (fast != null && slow != null) {
+            if (slow == fast) {
+                return slow;
+            }
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        return slow;
     }
 }
