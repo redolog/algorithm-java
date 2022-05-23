@@ -61,7 +61,7 @@ public class DeleteNode {
         }
 
         ListNode current = head;
-        while (current != null && current.next.val != val) {
+        while (current.next.val != val) {
             current = current.next;
         }
 

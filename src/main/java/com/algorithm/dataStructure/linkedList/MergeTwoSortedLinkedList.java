@@ -35,7 +35,7 @@ public class MergeTwoSortedLinkedList {
             current = l1;
             l1 = l1.next;
         }
-        ListNode dummyHead = new ListNode(-1, current);
+        ListNode dummy = new ListNode(-1, current);
 
         while (l1 != null && l2 != null) {
             if (l1.val > l2.val) {
@@ -49,7 +49,7 @@ public class MergeTwoSortedLinkedList {
 
         current.next = l1 == null ? l2 : l1;
 
-        return dummyHead.next;
+        return dummy.next;
     }
     public static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
 
@@ -60,8 +60,8 @@ public class MergeTwoSortedLinkedList {
             return l1;
         }
 
-        ListNode dummyHead = new ListNode();
-        ListNode prev=dummyHead;
+        ListNode dummy = new ListNode();
+        ListNode prev=dummy;
 
         while (l1 != null && l2 != null) {
             if (l1.val > l2.val) {
@@ -75,7 +75,7 @@ public class MergeTwoSortedLinkedList {
 
         prev.next = l1 == null ? l2 : l1;
 
-        return dummyHead.next;
+        return dummy.next;
     }
 
 }
