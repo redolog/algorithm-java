@@ -13,6 +13,9 @@ public class MergeSort {
      * 归并排序基本思想：
      * 1. DC 分治：把大数组排序问题转换为多个小数组排序问题，一直拆分，直到数组变成单个元素（已排序状态）；
      * 2. 拆分到底之后，依次合并小数组（合并两个有序数组）；
+     *
+     * 缺陷：
+     * 不是原地排序算法。有多余空间消耗。
      */
     public static void mergeSort(int[] a) {
         if (ArrayUtils.dontNeedSort(a)) {
