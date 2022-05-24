@@ -35,10 +35,15 @@ public class QuickSort {
         if (leftIdx >= rightIdx) {
             return;
         }
-        int pivotIdx = partitionPivotMiddle(arr, leftIdx, rightIdx);
-        // 因为pivot值已经放在正确位置上了，所以这里是 pivotIdx-1
+        int pivotIdx = partitionPengdi(arr, leftIdx, rightIdx);
         quickSort(arr, leftIdx, pivotIdx - 1);
-        quickSort(arr, pivotIdx + 1, rightIdx);
+        // 使用pengdi版本算法，在右区间需传入pivotIdx
+        quickSort(arr, pivotIdx, rightIdx);
+
+//        int pivotIdx = partition(arr, leftIdx, rightIdx);
+//        // 因为pivot值已经放在正确位置上了，所以这里是 pivotIdx-1
+//        quickSort(arr, leftIdx, pivotIdx - 1);
+//        quickSort(arr, pivotIdx+1, rightIdx);
     }
 
     /**
@@ -60,9 +65,7 @@ public class QuickSort {
                 // 判断当前i是不是快于j？
                 if (i > j) {
                     // 交换i、j位置元素
-                    int tmp = arr[i];
-                    arr[i++] = arr[j];
-                    arr[j++] = tmp;
+                    ArrayUtils.swap(arr, i++, j++);
                 } else {
                     arr[j++] = arr[i++];
                 }
@@ -77,24 +80,22 @@ public class QuickSort {
     /**
      * pivot 可考虑取中间位置的值，左右下标同时向中间靠拢
      */
-    private static int partitionPivotMiddle(int[] arr, int leftIdx, int rightIdx) {
-        int pivotVal = arr[leftIdx + ((rightIdx - leftIdx) >> 1)];
-
+    private static int partitionPengdi(int[] arr, int leftIdx, int rightIdx) {
+        int middleValue = arr[leftIdx + ((rightIdx - leftIdx) >> 1)];
         while (leftIdx <= rightIdx) {
-            // 左侧数据如果小于pivotVal，则持续向中间移动
-            while (arr[leftIdx] < pivotVal) {
-                ++leftIdx;
+            while (arr[leftIdx] < middleValue) {
+                leftIdx++;
             }
-            while (arr[rightIdx] > pivotVal) {
-                --rightIdx;
+            while (arr[rightIdx] > middleValue) {
+                rightIdx--;
             }
-            // 上面两个while停下的状态：arr[leftIdx] >= pivotVal && arr[rightIdx] <= pivotVal
-            if (leftIdx == rightIdx) {
-                return leftIdx;
+            if (leftIdx <= rightIdx) {
+                ArrayUtils.swap(arr, leftIdx, rightIdx);
+                leftIdx++;
+                rightIdx--;
             }
-
-            ArrayUtils.swap(arr, leftIdx, rightIdx);
         }
-        return -1;
+        return leftIdx;
+
     }
 }
