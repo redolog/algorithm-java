@@ -45,4 +45,33 @@ public class BubbleSort {
             }
         }
     }
+
+    public static void bubbleSort2(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return;
+        }
+
+        int n = arr.length;
+        // secondIdx 表示每一轮比较中，第二个元素的下标终点
+        for (int secondIdx = n - 1; secondIdx > 0; secondIdx--) {
+
+            // 表示当前轮比较有无发生交换
+            boolean swapped=false;
+
+            // currentIdx 表示每轮比较中第二个元素的遍历下标
+            for (int currentIdx = 1; currentIdx <= secondIdx; currentIdx++) {
+                if (arr[currentIdx - 1] > arr[currentIdx]) {
+                    ArrayUtils.swap(arr, currentIdx - 1, currentIdx);
+                    swapped=true;
+                }
+            }
+
+            if (!swapped) {
+                // 一直没交换，说明 currentIdx -> secondIdx 范围已经有序了
+                break;
+            }
+        }
+
+    }
+
 }

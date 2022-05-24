@@ -72,4 +72,19 @@ public class InsertSort {
             }
         }
     }
+
+    public static void insertSort3(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return;
+        }
+        // 插入排序
+        int n = arr.length;
+        // 最开始我们从下标1的元素开始向左比较，所以 startIdx=1
+        for (int startIdx = 1; startIdx < n; startIdx++) {
+
+            for (int currentIdx = startIdx; currentIdx - 1 >= 0 && arr[currentIdx] < arr[currentIdx - 1]; currentIdx--) {
+                ArrayUtils.swap(arr, currentIdx, currentIdx - 1);
+            }
+        }
+    }
 }
