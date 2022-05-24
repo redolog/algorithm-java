@@ -35,9 +35,9 @@ public class QuickSort {
         if (leftIdx >= rightIdx) {
             return;
         }
-        int pivotIdx = partition(arr, leftIdx, rightIdx);
+        int pivotIdx = partitionPivotMiddle(arr, leftIdx, rightIdx);
         // 因为pivot值已经放在正确位置上了，所以这里是 pivotIdx-1
-        quickSort(arr, leftIdx, pivotIdx-1);
+        quickSort(arr, leftIdx, pivotIdx - 1);
         quickSort(arr, pivotIdx + 1, rightIdx);
     }
 
@@ -72,5 +72,29 @@ public class QuickSort {
             }
         }
         return j - 1;
+    }
+
+    /**
+     * pivot 可考虑取中间位置的值，左右下标同时向中间靠拢
+     */
+    private static int partitionPivotMiddle(int[] arr, int leftIdx, int rightIdx) {
+        int pivotVal = arr[leftIdx + ((rightIdx - leftIdx) >> 1)];
+
+        while (leftIdx <= rightIdx) {
+            // 左侧数据如果小于pivotVal，则持续向中间移动
+            while (arr[leftIdx] < pivotVal) {
+                ++leftIdx;
+            }
+            while (arr[rightIdx] > pivotVal) {
+                --rightIdx;
+            }
+            // 上面两个while停下的状态：arr[leftIdx] >= pivotVal && arr[rightIdx] <= pivotVal
+            if (leftIdx == rightIdx) {
+                return leftIdx;
+            }
+
+            ArrayUtils.swap(arr, leftIdx, rightIdx);
+        }
+        return -1;
     }
 }
