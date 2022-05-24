@@ -55,4 +55,21 @@ public class InsertSort {
             a[j + 1] = current;
         }
     }
+
+    public static void insertSort2(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return;
+        }
+        // 插入排序
+        int n = arr.length;
+        // 最开始我们从下标1的元素开始向左比较，所以 startIdx=1
+        for (int startIdx = 1; startIdx < n; startIdx++) {
+            // 表示遍历下标
+            int currentIdx = startIdx;
+            while (currentIdx - 1 >= 0 && arr[currentIdx] < arr[currentIdx - 1]) {
+                ArrayUtils.swap(arr, currentIdx, currentIdx - 1);
+                currentIdx--;
+            }
+        }
+    }
 }
