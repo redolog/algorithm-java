@@ -49,10 +49,42 @@ public class BSearch {
         }
     }
 
-    public static void main(String[] args) {
-        int[] array = {1, 2, 3, 3, 5, 6, 7, 8, 8};
-        System.out.println(bsearchRecursive(array, 0, array.length - 1, 6));
+    /**
+     * 找数组中最左>=target的元素下标
+     *
+     * @param arr    已排序数组
+     * @param target 目标数
+     * @return 数组中最左>=target的元素下标
+     */
+    public static int findLeftMostBiggerEqualIndex(int[] arr, int target) {
+        if (null == arr || arr.length == 0) {
+            return -1;
+        }
+        int ansIdx = -1;
+
+        int left = 0, right = arr.length - 1;
+
+        while (left <= right) {
+            int middle = left + ((right - left) >> 1);
+            if (arr[middle] >= target) {
+                right = middle - 1;
+                ansIdx = middle;
+            } else {
+                // arr[middle] < target
+                left = middle + 1;
+            }
+        }
+
+        return ansIdx;
     }
 
+    public static int findLeftMostBiggerEqualIndexRude(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] >= target) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
 }

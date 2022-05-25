@@ -18,4 +18,12 @@ public class NumberUtils {
         }
         return true;
     }
+
+    /**
+     * @param maxInt 最大边界
+     * @return 返回 [1,maxInt] 内随机整数
+     */
+    public static int randomInt(int maxInt) {
+        return (int) (Math.random() * maxInt) + 1;
+    }
 }
