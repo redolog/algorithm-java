@@ -29,6 +29,6 @@ public class ReverseDoubleLinkedList {
             current = next;
             prev = currentTmp;
         }
-        return prev == null ? current : prev;
+        return prev;
     }
 }
