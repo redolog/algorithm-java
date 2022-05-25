@@ -1,5 +1,9 @@
 package com.algorithm.dataStructure.linkedList;
 
+import com.algorithm.util.StringUtils;
+
+import java.util.Objects;
+
 public class ListNode {
 
     public int val;
@@ -31,21 +35,19 @@ public class ListNode {
         if (val != listNode.val) {
             return false;
         }
-        return next != null ? next.equals(listNode.next) : listNode.next == null;
+        return next != null ? StringUtils.equals(String.valueOf(next), String.valueOf(listNode.next)) : listNode.next == null;
     }
 
     @Override
     public int hashCode() {
-        int result = val;
-        result = 31 * result + (next != null ? next.hashCode() : 0);
-        return result;
+        return Objects.hash(val, next);
     }
 
     @Override
     public String toString() {
         return "ListNode{" +
                 "val=" + val +
-                ", next=" + next +
+                ", next=" + (next == null ? "null" : next.val) +
                 '}';
     }
 
