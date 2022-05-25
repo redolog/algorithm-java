@@ -8,6 +8,9 @@ public class MathUtils {
     private MathUtils() {
     }
 
+    public static int abs(int a) {
+        return a < 0 ? ~a + 1 : a;
+    }
 
     /**
      * 1.求整数商： c = [a/b];

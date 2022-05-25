@@ -26,4 +26,8 @@ public class ArrayUtils {
         array[bIdx] = tmp;
     }
 
+    public static boolean dontNeedEquals(int[] arr) {
+        return null == arr || arr.length < 2;
+    }
+
 }
