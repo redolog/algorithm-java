@@ -5,6 +5,13 @@ public class NumberUtils {
     private NumberUtils() {
     }
 
+    /**
+     * 近似等于，判定数组元素与首个元素的差，是否在精度内
+     *
+     * @param precision 精度
+     * @param nums      待判断数组
+     * @return 元素-首个元素的差绝对值在精度内返回true
+     */
     public static boolean nearlyEquals(int precision, int... nums) {
         if (ArrayUtils.dontNeedEquals(nums)) {
             return true;

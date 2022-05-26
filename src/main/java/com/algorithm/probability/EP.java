@@ -3,9 +3,11 @@ package com.algorithm.probability;
 /**
  * 等概率实现
  *
+ * EqualProbability
+ *
  * @author dragonsong  @date 2022/5/25
  */
-public class EqualProbability {
+public class EP {
 
     public static int rand15() {
         // 等概率返回1-5，我们使用 random() 实现
@@ -49,5 +51,18 @@ public class EqualProbability {
             ans = rand01(seed);
         } while (ans == rand01(seed));
         return ans == 0 ? 0 : 1;
+    }
+
+    public static int rand03() {
+        return (epBaseRand01() << 1) + epBaseRand01();
+    }
+
+    public static int rand13() {
+        int ans;
+        do {
+            ans = rand03();
+            // 保证每轮都输出 1、2、3
+        } while (ans == 0);
+        return ans;
     }
 }

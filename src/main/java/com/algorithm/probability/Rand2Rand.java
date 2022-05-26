@@ -13,7 +13,7 @@ public class Rand2Rand {
      * // 此时我们表达了 0-8数字情况，将0的情况去掉，则正好是 1-7 范围等概率随机结果
      */
     public static int rand07() {
-        return (EqualProbability.epBaseRand15() << 2) + (EqualProbability.epBaseRand15() << 1) + (EqualProbability.epBaseRand15());
+        return (EP.epBaseRand15() << 2) + (EP.epBaseRand15() << 1) + (EP.epBaseRand15());
     }
 
     /**

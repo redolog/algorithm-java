@@ -19,7 +19,7 @@ public class EqualProbabilityTest {
         int[] randCounts = ProbabilityUtils.runStoreEpCnts(
                 cnt,
                 0, 1,
-                EqualProbability::epBaseRand01
+                EP::epBaseRand01
         );
 
         System.out.println(Arrays.toString(randCounts));
@@ -32,7 +32,7 @@ public class EqualProbabilityTest {
         int[] randCounts = ProbabilityUtils.runStoreEpCnts(
                 cnt,
                 0, 1,
-                EqualProbability::epBaseRand15
+                EP::epBaseRand15
         );
 
         System.out.println(Arrays.toString(randCounts));
