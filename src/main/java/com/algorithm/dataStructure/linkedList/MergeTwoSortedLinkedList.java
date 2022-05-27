@@ -51,6 +51,7 @@ public class MergeTwoSortedLinkedList {
 
         return dummy.next;
     }
+
     public static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
 
         if (l1 == null) {
@@ -61,7 +62,7 @@ public class MergeTwoSortedLinkedList {
         }
 
         ListNode dummy = new ListNode();
-        ListNode prev=dummy;
+        ListNode prev = dummy;
 
         while (l1 != null && l2 != null) {
             if (l1.val > l2.val) {
@@ -77,6 +78,29 @@ public class MergeTwoSortedLinkedList {
 
         return dummy.next;
     }
+
+    public static ListNode recurseMergeTwoSortedLinkedList(ListNode l1, ListNode l2) {
+        /*
+         * 1. 边界：l1 或 l2 空了，返回另一个链表节点
+         * 2. 递推公式： merge(l1,l2) = merge(lmin.next,l1) +  merge(lmin.next,l2)
+         *
+         * 缺陷：递归需要栈空间，空间复杂度为 O(m+n)
+         */
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        if (l1.val < l2.val) {
+            l1.next = recurseMergeTwoSortedLinkedList(l1.next, l2);
+            return l1;
+        } else {
+            l2.next = recurseMergeTwoSortedLinkedList(l2.next, l1);
+            return l2;
+        }
+    }
+
 
 }
 

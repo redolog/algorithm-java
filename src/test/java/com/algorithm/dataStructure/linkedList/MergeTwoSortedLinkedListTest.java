@@ -16,4 +16,12 @@ public class MergeTwoSortedLinkedListTest {
                 MergeTwoSortedLinkedList.mergeTwoLists2(ListNode.build(1,2,4),ListNode.build(1,3,4))
         );
     }
+
+    @Test
+    public void recurseMergeTwoSortedLinkedList() {
+        Assert.assertEquals(
+                ListNode.build(1,1,2,3,4,4),
+                MergeTwoSortedLinkedList.recurseMergeTwoSortedLinkedList(ListNode.build(1,2,4),ListNode.build(1,3,4))
+        );
+    }
 }
