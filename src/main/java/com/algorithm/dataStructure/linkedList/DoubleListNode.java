@@ -11,11 +11,11 @@ import java.util.Objects;
  */
 public class DoubleListNode {
 
-    int val;
+    public int val;
 
-    DoubleListNode prev;
+    public DoubleListNode prev;
 
-    DoubleListNode next;
+    public DoubleListNode next;
 
     public DoubleListNode() {
     }
@@ -23,6 +23,9 @@ public class DoubleListNode {
     public DoubleListNode(int val, DoubleListNode prev) {
         this.val = val;
         this.prev = prev;
+    }
+    public DoubleListNode(int val) {
+        this.val = val;
     }
 
     public DoubleListNode(int val, DoubleListNode prev, DoubleListNode next) {
