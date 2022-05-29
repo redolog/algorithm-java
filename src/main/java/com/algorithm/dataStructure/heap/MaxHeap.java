@@ -18,6 +18,8 @@ import com.algorithm.util.ArrayUtils;
  * 1
  * 2 3
  * 4 5 6
+ * <p>
+ * 数据结构的堆是一种逻辑结构。编程语言中的堆往往指一块内存区域、池。
  *
  * @author dragonsong  @date 2022/5/28
  */
@@ -51,7 +53,7 @@ public class MaxHeap {
      * @param childIdx 子节点下标
      * @return childIdx / 2 即为父节点下标
      */
-    public int getParentIdx(int childIdx) {
+    public static int getParentIdx(int childIdx) {
         return childIdx / 2;
     }
 
@@ -59,7 +61,7 @@ public class MaxHeap {
      * @param parentIdx 父节点下标
      * @return 2 * parentIdx 即为左子节点下标
      */
-    public int getLeftChildIdx(int parentIdx) {
+    public static int getLeftChildIdx(int parentIdx) {
         return 2 * parentIdx;
     }
 
@@ -67,7 +69,7 @@ public class MaxHeap {
      * @param parentIdx 父节点下标
      * @return 2 * parentIdx+1 即为右子节点下标
      */
-    public int getRightChildIdx(int parentIdx) {
+    public static int getRightChildIdx(int parentIdx) {
         return 2 * parentIdx + 1;
     }
 
@@ -127,9 +129,9 @@ public class MaxHeap {
     private void heapifyToDown(int parentIdx) {
         int leftChildIdx = getLeftChildIdx(parentIdx);
         int rightChildIdx = getRightChildIdx(parentIdx);
-        while (leftChildIdx <= size && rightChildIdx <= size) {
+        while (leftChildIdx <= size || rightChildIdx <= size) {
             // 满足左右子节点值小于父节点，跳出遍历
-            if (elements[parentIdx] >= elements[leftChildIdx] && elements[parentIdx] >= elements[rightChildIdx]) {
+            if (elements[parentIdx] >= elements[leftChildIdx] && (rightChildIdx <= size && elements[parentIdx] >= elements[rightChildIdx])) {
                 break;
             }
 
@@ -138,6 +140,56 @@ public class MaxHeap {
             parentIdx = biggerIdx;
             leftChildIdx = getLeftChildIdx(parentIdx);
             rightChildIdx = getRightChildIdx(parentIdx);
+        }
+    }
+
+    // 建堆：对数组堆化，形成完全二叉树逻辑结构
+
+    /**
+     * 插入式建堆
+     * insert本质上是从下往上heapify堆合理化，即子节点插入，与其父节点对比
+     *
+     * @param arr 数据源
+     */
+    public void buildHeap2Up(int[] arr) {
+        for (int element : arr) {
+            this.insert(element);
+        }
+    }
+
+    /**
+     * 从数组中间下标开始处理，即倒数第二层倒序遍历（从右向左）
+     *
+     * @param arr 原数组
+     */
+    public static void buildHeap2Down(int[] arr) {
+        if (ArrayUtils.isEmpty(arr)) {
+            return;
+        }
+        int lastChildIdx = arr.length - 1;
+        int parentIdx = getParentIdx(lastChildIdx);
+        for (; parentIdx > 0; parentIdx--) {
+            // 控制树的倒数第二层遍历。父节点对比左右子节点，即从上往下堆化
+            while (true) {
+                // 判断当前父子节点值大小关系，同时向下遍历子树
+                int biggerIdx = parentIdx;
+                int leftChildIdx = getLeftChildIdx(parentIdx);
+                int rightChildIdx = getRightChildIdx(parentIdx);
+                if (leftChildIdx <= lastChildIdx && arr[leftChildIdx] > arr[parentIdx]) {
+                    biggerIdx = leftChildIdx;
+                }
+                if (rightChildIdx <= lastChildIdx && arr[rightChildIdx] > arr[parentIdx]) {
+                    biggerIdx = rightChildIdx;
+                }
+                if (biggerIdx == parentIdx) {
+                    // 当前父节点大于左右节点，继续遍历树
+                    break;
+                }
+                ArrayUtils.swap(arr, biggerIdx, parentIdx);
+
+                // parentIdx 与其子节点交换后，需保证 parentIdx下任意子树都满足堆性质，往下遍历
+                parentIdx = biggerIdx;
+            }
         }
     }
 
