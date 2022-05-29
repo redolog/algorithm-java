@@ -40,7 +40,7 @@ public class MaxHeap {
 
     public MaxHeap(int capacity) {
         this.capacity = capacity;
-        this.elements = new int[capacity + 1];
+        this.elements = new int[capacity];
         this.size = 0;
     }
 
@@ -54,7 +54,7 @@ public class MaxHeap {
      * @return childIdx / 2 即为父节点下标
      */
     public static int getParentIdx(int childIdx) {
-        return childIdx / 2;
+        return (childIdx - 1) / 2;
     }
 
     /**
@@ -62,7 +62,7 @@ public class MaxHeap {
      * @return 2 * parentIdx 即为左子节点下标
      */
     public static int getLeftChildIdx(int parentIdx) {
-        return 2 * parentIdx;
+        return 2 * parentIdx + 1;
     }
 
     /**
@@ -70,7 +70,7 @@ public class MaxHeap {
      * @return 2 * parentIdx+1 即为右子节点下标
      */
     public static int getRightChildIdx(int parentIdx) {
-        return 2 * parentIdx + 1;
+        return 2 * parentIdx + 2;
     }
 
     public boolean insert(int element) {
@@ -78,10 +78,10 @@ public class MaxHeap {
             System.err.println(String.format("MaxHeap已满，capacity==size %d", capacity));
             return false;
         }
-        ++size;
         elements[size] = element;
         // 从下往上遍历父子节点，检查是否满足最大堆性质：任意子节点小于等于父节点
         heapify2Up(size);
+        ++size;
         return true;
     }
 
@@ -93,7 +93,7 @@ public class MaxHeap {
      */
     private void heapify2Up(int childIdx) {
         int parentIdx = getParentIdx(childIdx);
-        while (parentIdx > 0 && elements[parentIdx] < elements[childIdx]) {
+        while (parentIdx >= 0 && childIdx < elements.length && elements[parentIdx] < elements[childIdx]) {
             // 父节点小于子节点时，交换两个节点的值
             ArrayUtils.swap(elements, parentIdx, childIdx);
             childIdx = parentIdx;
@@ -163,12 +163,15 @@ public class MaxHeap {
      * @param arr 原数组
      */
     public static void buildHeap2Down(int[] arr) {
+        buildHeap2Down(arr, arr.length - 1);
+    }
+
+    public static void buildHeap2Down(int[] arr, int lastChildIdx) {
         if (ArrayUtils.isEmpty(arr)) {
             return;
         }
-        int lastChildIdx = arr.length - 1;
         int parentIdx = getParentIdx(lastChildIdx);
-        for (; parentIdx > 0; parentIdx--) {
+        for (; parentIdx >= 0; parentIdx--) {
             // 控制树的倒数第二层遍历。父节点对比左右子节点，即从上往下堆化
             while (true) {
                 // 判断当前父子节点值大小关系，同时向下遍历子树

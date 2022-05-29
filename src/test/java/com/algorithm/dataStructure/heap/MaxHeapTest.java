@@ -25,11 +25,7 @@ public class MaxHeapTest {
         assertFalse(maxHeap.insert(-1));
         assertFalse(maxHeap.insert(-2));
 
-        assertTrue(Arrays.equals(new int[]{0, 7, 5, 6, 4, 2, 1}, maxHeap.elements) || Arrays.equals(new int[]{0, 7, 5, 6, 1, 4, 2}, maxHeap.elements));
-
-        for (int i = 1; i < maxHeap.elements.length; i++) {
-
-        }
+        assertTrue(Arrays.equals(new int[]{7, 5, 6, 4, 2, 1}, maxHeap.elements) || Arrays.equals(new int[]{7, 5, 6, 1, 4, 2}, maxHeap.elements));
     }
 
     @Test
