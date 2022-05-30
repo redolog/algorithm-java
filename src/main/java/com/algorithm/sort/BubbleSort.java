@@ -4,6 +4,17 @@ import com.algorithm.util.ArrayUtils;
 
 public class BubbleSort {
 
+    /*
+     * 复杂度分析：
+     * 1. 冒泡比较、交换均为原地操作，空间复杂度O(1)；
+     * 2. 元素比较大小时，只有元素大于当前元素才涉及交换操作【相同大小不挪动】，可以保证排序的稳定性；
+     * 3. 时间复杂度：
+     *  - 最好情况，如 1,2,3,4,5,6 只需遍历一次，时间复杂度为O(n)
+     *  - 最坏情况，如 6,5,4,3,2,1 有序度最小逆序度最大，每个元素都需要经过一轮冒泡，复杂度为O(n^2)
+     *  - 平均情况，加权平均下的交换次数：n*(n-1)/2/2，其中 n*(n-1)/2 为最坏情况下的交换次数，/2 估算为平均程度。同时比较次数>交换次数，去掉常数、系数，此时复杂度为O(n^2)
+     *
+     */
+
     /**
      * 冒泡排序基本思想：
      * - 逐个遍历每个元素，拿当次元素与后续元素进行比较，比较后持有更大元素，同时往后挪动更大元素，一轮遍历后，最大元素挪动到最后
@@ -56,13 +67,13 @@ public class BubbleSort {
         for (int secondIdx = n - 1; secondIdx > 0; secondIdx--) {
 
             // 表示当前轮比较有无发生交换
-            boolean swapped=false;
+            boolean swapped = false;
 
             // currentIdx 表示每轮比较中第二个元素的遍历下标
             for (int currentIdx = 1; currentIdx <= secondIdx; currentIdx++) {
                 if (arr[currentIdx - 1] > arr[currentIdx]) {
                     ArrayUtils.swap(arr, currentIdx - 1, currentIdx);
-                    swapped=true;
+                    swapped = true;
                 }
             }
 
