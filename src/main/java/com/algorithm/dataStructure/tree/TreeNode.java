@@ -15,7 +15,7 @@ public class TreeNode {
 
     /**
      * 当前节点值
-     * 我们定义 val==-1 为异常值
+     * 我们定义 val==MIN_VALUE 为异常值
      */
     public int val;
     /**

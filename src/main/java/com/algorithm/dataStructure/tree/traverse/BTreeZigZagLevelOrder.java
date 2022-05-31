@@ -50,6 +50,7 @@ public class BTreeZigZagLevelOrder {
      * 通过测试用例：
      * 33 / 33
      */
+    @SuppressWarnings("unchecked")
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         if (root == null) {
             return new ArrayList<>(0);

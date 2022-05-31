@@ -173,27 +173,32 @@ public class MaxHeap {
         int parentIdx = getParentIdx(lastChildIdx);
         for (; parentIdx >= 0; parentIdx--) {
             // 控制树的倒数第二层遍历。父节点对比左右子节点，即从上往下堆化
-            while (true) {
-                // 判断当前父子节点值大小关系，同时向下遍历子树
-                int biggerIdx = parentIdx;
-                int leftChildIdx = getLeftChildIdx(parentIdx);
-                int rightChildIdx = getRightChildIdx(parentIdx);
-                if (rightChildIdx <= lastChildIdx && arr[rightChildIdx] > arr[parentIdx]) {
-                    biggerIdx = rightChildIdx;
-                }
-                if (leftChildIdx <= lastChildIdx && arr[leftChildIdx] > arr[parentIdx]) {
-                    biggerIdx = leftChildIdx;
-                }
-                if (biggerIdx == parentIdx) {
-                    // 当前父节点大于左右节点，继续遍历树
-                    break;
-                }
-                ArrayUtils.swap(arr, biggerIdx, parentIdx);
-
-                // parentIdx 与其子节点交换后，需保证 parentIdx下任意子树都满足堆性质，往下遍历
-                parentIdx = biggerIdx;
-            }
+            parentIdx = cas(arr, lastChildIdx, parentIdx);
         }
+    }
+
+    private static int cas(int[] arr, int lastChildIdx, int parentIdx) {
+        while (true) {
+            // 判断当前父子节点值大小关系，同时向下遍历子树
+            int biggerIdx = parentIdx;
+            int leftChildIdx = getLeftChildIdx(parentIdx);
+            int rightChildIdx = getRightChildIdx(parentIdx);
+            if (rightChildIdx <= lastChildIdx && arr[rightChildIdx] > arr[parentIdx]) {
+                biggerIdx = rightChildIdx;
+            }
+            if (leftChildIdx <= lastChildIdx && arr[leftChildIdx] > arr[parentIdx]) {
+                biggerIdx = leftChildIdx;
+            }
+            if (biggerIdx == parentIdx) {
+                // 当前父节点大于左右节点，继续遍历树
+                break;
+            }
+            ArrayUtils.swap(arr, biggerIdx, parentIdx);
+
+            // parentIdx 与其子节点交换后，需保证 parentIdx下任意子树都满足堆性质，往下遍历
+            parentIdx = biggerIdx;
+        }
+        return parentIdx;
     }
 
 }
