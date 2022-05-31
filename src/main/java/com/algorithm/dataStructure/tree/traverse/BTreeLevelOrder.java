@@ -11,8 +11,6 @@ import java.util.LinkedList;
  */
 public class BTreeLevelOrder {
 
-    private static LinkedList<TreeNode> QUEUE = new LinkedList<>();
-
     /**
      * BFS，广度优先：按层遍历：一层-> 二层-> 三层-> 最下层
      *
@@ -22,20 +20,20 @@ public class BTreeLevelOrder {
         if (node == null) {
             return;
         }
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(node);
 
-        QUEUE.offer(node);
-
-        while (!QUEUE.isEmpty()) {
-            TreeNode qnode = QUEUE.poll();
+        while (!queue.isEmpty()) {
+            TreeNode qnode = queue.poll();
             if (qnode == null) {
                 continue;
             }
             System.out.println(qnode.val);
             if (qnode.left != null) {
-                QUEUE.offer(qnode.left);
+                queue.offer(qnode.left);
             }
             if (qnode.right != null) {
-                QUEUE.offer(qnode.right);
+                queue.offer(qnode.right);
             }
         }
     }
@@ -52,4 +50,6 @@ public class BTreeLevelOrder {
 
         levelOrderTraverse(one);
     }
+
+
 }
