@@ -26,8 +26,8 @@ public class HeapSort {
      *          - 求得 S=-h + (2^h * 2 - 2)/(2 - 1)=-h+2^h
      *          - 其中 h 为 log2n，所以 S= n -h
      *      - 因此建堆复杂度为 O(n)，其中h为常数阶省略
-     *  - 我们从查找最大元素开始一直到最小元素，一直迭代n次，执行建堆、替换，后续每一轮堆化操作复杂度与节点高成正比，复杂度 O(logn)
-     *  - 因此堆排序时间复杂度为 O(n*logn+n)
+     *  - 将剩余元素堆化：我们从查找最大元素开始一直到最小元素，一直迭代n次，执行堆化、替换，后续每一轮堆化操作复杂度与节点高成正比，复杂度 O(logn)
+     *  - 因此堆排序时间复杂度为 O(n*logn+n)，其中n为低阶，可省略，即复杂度为  O(n*logn)
      */
 
     /**
@@ -44,10 +44,10 @@ public class HeapSort {
         }
 
         int lastChildIdx = arr.length - 1;
+        MaxHeap.buildHeap2Down(arr, lastChildIdx);
         while (lastChildIdx > 0) {
-            MaxHeap.buildHeap2Down(arr, lastChildIdx);
             ArrayUtils.swap(arr, lastChildIdx, 0);
-            --lastChildIdx;
+            MaxHeap.heapify(arr, --lastChildIdx, 0);
         }
 
     }
