@@ -1,6 +1,6 @@
 package com.algorithm.sort;
 
-import com.algorithm.dataStructure.heap.MaxHeap;
+import com.algorithm.dataStructure.tree.MaxHeap;
 import com.algorithm.util.ArrayUtils;
 
 /**
@@ -22,12 +22,10 @@ public class HeapSort {
         }
 
         int lastChildIdx = arr.length - 1;
-        MaxHeap.buildHeap2Down(arr);
-
         while (lastChildIdx > 0) {
+            MaxHeap.buildHeap2Down(arr, lastChildIdx);
             ArrayUtils.swap(arr, lastChildIdx, 0);
             --lastChildIdx;
-            MaxHeap.buildHeap2Down(arr, lastChildIdx);
         }
 
     }

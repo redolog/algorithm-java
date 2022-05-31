@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.heap;
+package com.algorithm.dataStructure.tree;
 
 import com.algorithm.util.ArrayUtils;
 
@@ -28,15 +28,15 @@ public class MaxHeap {
     /**
      * 使用数组存储数据，为了便于获取父子节点下标，我们从1下标开始存
      */
-    int[] elements;
+    public int[] elements;
     /**
      * 当前元素数
      */
-    int size;
+    public int size;
     /**
      * 容量
      */
-    int capacity;
+    public int capacity;
 
     public MaxHeap(int capacity) {
         this.capacity = capacity;
@@ -178,11 +178,11 @@ public class MaxHeap {
                 int biggerIdx = parentIdx;
                 int leftChildIdx = getLeftChildIdx(parentIdx);
                 int rightChildIdx = getRightChildIdx(parentIdx);
-                if (leftChildIdx <= lastChildIdx && arr[leftChildIdx] > arr[parentIdx]) {
-                    biggerIdx = leftChildIdx;
-                }
                 if (rightChildIdx <= lastChildIdx && arr[rightChildIdx] > arr[parentIdx]) {
                     biggerIdx = rightChildIdx;
+                }
+                if (leftChildIdx <= lastChildIdx && arr[leftChildIdx] > arr[parentIdx]) {
+                    biggerIdx = leftChildIdx;
                 }
                 if (biggerIdx == parentIdx) {
                     // 当前父节点大于左右节点，继续遍历树

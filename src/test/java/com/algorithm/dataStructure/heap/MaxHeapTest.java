@@ -1,5 +1,6 @@
 package com.algorithm.dataStructure.heap;
 
+import com.algorithm.dataStructure.tree.MaxHeap;
 import org.junit.Before;
 import org.junit.Test;
 
