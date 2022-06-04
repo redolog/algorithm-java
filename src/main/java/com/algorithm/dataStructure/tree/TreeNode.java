@@ -2,7 +2,10 @@ package com.algorithm.dataStructure.tree;
 
 import com.algorithm.util.ArrayUtils;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 /**
  * 二叉树节点
@@ -37,12 +40,12 @@ public class TreeNode {
         this.val = val;
     }
 
-    public static boolean invalidVal(int val) {
-        return val == INVALID_VAL;
+    public static boolean invalidVal(Integer val) {
+        return val == null || val == INVALID_VAL;
     }
 
-    public static boolean validVal(int val) {
-        return val != INVALID_VAL;
+    public static boolean validVal(Integer val) {
+        return val != null && val != INVALID_VAL;
     }
 
     /**
@@ -80,23 +83,53 @@ public class TreeNode {
      * 1,2,-1,3,-1,4,-1,5
      * 0,1,2 ,3 ,4,5 ,6,7
      * <p>
-     * 构建普通二叉树
+     * 按层构建普通二叉树
      */
-    public static TreeNode buildWithArr(int[] arr) {
+    public static TreeNode buildAnyWithArr(Integer[] arr) {
         if (ArrayUtils.isEmpty(arr)) {
             return null;
         }
-        return buildCompleteWithArrIdx(arr,0);
-    }
 
-    private static TreeNode buildCompleteWithArrIdx(int[] array, int parentIdx) {
-        TreeNode root = null;
-        if (parentIdx < array.length) {
-            root = new TreeNode(array[parentIdx]);
-            root.left = buildCompleteWithArrIdx(array, getCompleteLeftChildIdx(parentIdx));
-            root.right = buildCompleteWithArrIdx(array, getCompleteRightChildIdx(parentIdx));
+        // 存原数组数字信息
+        Queue<Integer> arrQueue = new LinkedList<>(Arrays.asList(arr));
+        // 存构建节点信息
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+
+        Integer rootNum = arrQueue.poll();
+        if (rootNum == null) {
+            return null;
+        }
+        TreeNode root = new TreeNode(rootNum);
+        nodeQueue.offer(root);
+
+        while (!nodeQueue.isEmpty()) {
+            // 从 nodeQueue 拿出当前待处理节点
+            TreeNode node = nodeQueue.poll();
+            if (node == null) {
+                // 空节点直接跳过
+                continue;
+            }
+            // 从原数组拿出上述节点对应的子节点，入队 nodeQueue 待下次执行
+            Integer leftNum = arrQueue.poll();
+            nodeQueue.offer(node.left = leftNum == null ? null : new TreeNode(leftNum));
+
+            Integer rightNum = arrQueue.poll();
+            nodeQueue.offer(node.right = rightNum == null ? null : new TreeNode(rightNum));
         }
         return root;
+    }
+
+    private static TreeNode buildCompleteWithArrIdx(Integer[] array, int parentIdx) {
+        TreeNode parent = null;
+        if (parentIdx < array.length) {
+            if (invalidVal(array[parentIdx])) {
+                return null;
+            }
+            parent = new TreeNode(array[parentIdx]);
+            parent.left = buildCompleteWithArrIdx(array, getCompleteLeftChildIdx(parentIdx));
+            parent.right = buildCompleteWithArrIdx(array, getCompleteRightChildIdx(parentIdx));
+        }
+        return parent;
 
     }
 
@@ -104,7 +137,7 @@ public class TreeNode {
      * <p>
      * 构建完全二叉树
      */
-    public static TreeNode buildCompleteWithArr(int[] arr) {
+    public static TreeNode buildCompleteWithArr(Integer[] arr) {
         if (ArrayUtils.isEmpty(arr)) {
             return null;
         }
@@ -144,9 +177,7 @@ public class TreeNode {
             return false;
         }
         TreeNode treeNode = (TreeNode) o;
-        return val == treeNode.val &&
-                Objects.equals(left, treeNode.left) &&
-                Objects.equals(right, treeNode.right);
+        return val == treeNode.val && Objects.equals(left, treeNode.left) && Objects.equals(right, treeNode.right);
     }
 
     @Override
@@ -156,10 +187,6 @@ public class TreeNode {
 
     @Override
     public String toString() {
-        return "TreeNode{" +
-                "val=" + val +
-                ", left=" + (null == left ? "null" : left.val) +
-                ", right=" + (null == right ? "null" : right.val) +
-                '}';
+        return "TreeNode{" + "val=" + val + ", left=" + (null == left ? "null" : left.val) + ", right=" + (null == right ? "null" : right.val) + '}';
     }
 }
