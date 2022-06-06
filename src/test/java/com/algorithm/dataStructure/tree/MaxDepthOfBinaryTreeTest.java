@@ -10,4 +10,10 @@ public class MaxDepthOfBinaryTreeTest {
         Assert.assertEquals(3,
                 MaxDepthOfBinaryTree.maxDepth(TreeNode.buildAnyWithArr(new Integer[]{3, 9, 20, null, null, 15, 7})));
     }
+
+    @Test
+    public void maxDepthWithQueue() {
+        Assert.assertEquals(3,
+                MaxDepthOfBinaryTree.maxDepthWithQueue(TreeNode.buildAnyWithArr(new Integer[]{3, 9, 20, null, null, 15, 7})));
+    }
 }
