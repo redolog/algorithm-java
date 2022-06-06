@@ -40,16 +40,64 @@ public class ValidPalindrome {
         if (null == s || s.length() <= 1) {
             return true;
         }
-        return s.charAt(0) == s.charAt(s.length() - 1) && isPalindrome(s.substring(1, s.length() - 1));
+        // 回文begin对应的end下标
+        int startIdx = 0;
+        char startChar = Character.toLowerCase(s.charAt(startIdx));
+        int endIdx = s.length() - 1;
+        char endChar = Character.toLowerCase(s.charAt(endIdx));
+        // 判断字符字母或数字
+        while (!isLowerLetter(startChar) && !isDigit(startChar)) {
+            ++startIdx;
+            startChar = Character.toLowerCase(s.charAt(startIdx));
+        }
+        while (!isLowerLetter(endChar) && !isDigit(endChar)) {
+            --endIdx;
+            endChar = Character.toLowerCase(s.charAt(endIdx));
+        }
+
+        if (startIdx >= endIdx) {
+            return true;
+        }
+        return startChar == endChar && isPalindrome(s.substring(startIdx + 1, endIdx));
+    }
+
+    public boolean isLowerLetter(char c) {
+        return c >= 'a' && c <= 'z';
+    }
+
+    public boolean isDigit(char c) {
+        return c >= '1' && c <= '9';
     }
 
     public boolean isPalindromeTraverse(String s) {
         if (null == s || s.length() <= 1) {
             return true;
         }
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < chars.length / 2; i++) {
-            if (chars[i] != chars[chars.length - 1 - i]) {
+        int startIdx = 0;
+        int endIdx = s.length() - 1;
+        while (startIdx < endIdx) {
+            // 回文begin对应的end下标
+            char startChar = Character.toLowerCase(s.charAt(startIdx));
+            char endChar = Character.toLowerCase(s.charAt(endIdx));
+            // 判断字符字母或数字
+            while (!isLowerLetter(startChar) && !isDigit(startChar)) {
+                ++startIdx;
+                if (startIdx > endIdx || startIdx >= s.length() - 1) {
+                    return true;
+                }
+                startChar = Character.toLowerCase(s.charAt(startIdx));
+            }
+            while (!isLowerLetter(endChar) && !isDigit(endChar)) {
+                --endIdx;
+                if (endIdx < startIdx) {
+                    return true;
+                }
+                endChar = Character.toLowerCase(s.charAt(endIdx));
+            }
+
+            ++startIdx;
+            --endIdx;
+            if (startChar != endChar) {
                 return false;
             }
         }
