@@ -1,5 +1,6 @@
 package com.algorithm.dp;
 
+import com.algorithm.backtrack.Permutations;
 import com.algorithm.util.CollectionUtils;
 import org.junit.Assert;
 import org.junit.Before;
