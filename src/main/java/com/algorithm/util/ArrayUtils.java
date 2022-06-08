@@ -7,6 +7,7 @@ public class ArrayUtils {
     public static boolean isEmpty(int[] a) {
         return a == null || a.length == 0;
     }
+
     public static boolean isEmpty(Object[] a) {
         return a == null || a.length == 0;
     }
@@ -57,6 +58,17 @@ public class ArrayUtils {
             arr[i] = NumberUtils.randomInt(maxVal);
         }
         return arr;
+    }
+
+    public static void printArr(int[] arr) {
+        if (arr == null || arr.length < 1) {
+            return;
+        }
+        System.out.println();
+        for (int ele : arr) {
+            System.out.print(ele + " ");
+        }
+        System.out.println();
     }
 
 }
