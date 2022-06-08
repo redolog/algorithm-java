@@ -41,4 +41,13 @@ public class NumberUtils {
     public static int randomIndex(int maxInt) {
         return (int) (Math.random() * maxInt);
     }
+
+    /**
+     * @param leftIdx  左闭区间下标
+     * @param rightIdx 右闭区间下标
+     * @return 返回[leftIdx, rightIdx] 内随机整数下标
+     */
+    public static int randomIndexWithRange(int leftIdx, int rightIdx) {
+        return (int) (Math.random() * (rightIdx - leftIdx + 1) + leftIdx);
+    }
 }
