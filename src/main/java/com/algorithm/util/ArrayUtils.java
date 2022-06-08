@@ -1,5 +1,7 @@
 package com.algorithm.util;
 
+import java.util.stream.IntStream;
+
 public class ArrayUtils {
     private ArrayUtils() {
     }
@@ -58,6 +60,45 @@ public class ArrayUtils {
             arr[i] = NumberUtils.randomInt(maxVal);
         }
         return arr;
+    }
+
+    public static int[] createFullyOrderedArray(int size) {
+        if (size < 1) {
+            return new int[0];
+        }
+        return IntStream.range(0, size).toArray();
+    }
+
+    /**
+     * 先按size生成完全有序的数组，再按照 swapTimes 随机打乱数组
+     *
+     * @param size      数组大小
+     * @param swapTimes 随机交换次数
+     * @return 按 swapTimes 次数成反比的近有序数组
+     */
+    public static int[] createNearlyOrderedArray(int size, int swapTimes) {
+        if (size < 1) {
+            return new int[0];
+        }
+        int[] arr = createFullyOrderedArray(size);
+
+        for (int i = 0; i < swapTimes; i++) {
+            int aIdx = NumberUtils.randomIndex(size);
+            int bIdx = NumberUtils.randomIndex(size);
+            swap(arr, aIdx, bIdx);
+        }
+        return arr;
+    }
+
+    public static boolean nearlyEquals(int precision, int[] arr1, int[] arr2) {
+        if (arr1 == null || arr1.length < precision || arr2 == null || arr2.length < precision || arr1.length != arr2.length) {
+            return false;
+        }
+        int notEqualCnt = 0;
+        for (int i = 0; i < arr1.length; i++) {
+            notEqualCnt += arr1[i] == arr2[i] ? 0 : 1;
+        }
+        return notEqualCnt <= 2 * precision;
     }
 
     public static void printArr(int[] arr) {
