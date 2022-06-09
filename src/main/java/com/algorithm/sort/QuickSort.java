@@ -1,6 +1,7 @@
 package com.algorithm.sort;
 
 import com.algorithm.util.ArrayUtils;
+import com.algorithm.util.NumberUtils;
 
 /**
  * 快速排序
@@ -48,19 +49,67 @@ public class QuickSort {
         quickSort(arr, 0, arr.length - 1);
     }
 
+    public static void quickSortThreeWays(int[] arr) {
+        if (null == arr || arr.length < 2) {
+            return;
+        }
+        quickSortThreeWays(arr, 0, arr.length - 1);
+    }
+
+    private static void quickSortThreeWays(int[] arr, int leftIdx, int rightIdx) {
+        if (leftIdx >= rightIdx) {
+            return;
+        }
+        ArrayUtils.swap(arr,rightIdx,NumberUtils.randomIndexWithRange(leftIdx,rightIdx));
+
+        // 对比基准值
+        int pivotVal = arr[rightIdx];
+
+        // 将数组分为三个区域：右侧大于、左侧小于、中间等于
+        // [gt,rightIdx] 大于，gt指向当前大于等于的区间，最后处理rightIdx位置
+        int gt = rightIdx;
+        // [leftIdx,lt] 小于，lt指向当前小于的区间
+        int lt = leftIdx - 1;
+        // [lt+1,eg) 等于 右开区间，保证初始化时区间仍然成立 i指向遍历位置，即下一个处理的位置
+        int i = lt + 1;
+
+        while (i < gt) {
+            if (arr[i] < pivotVal) {
+                // arr[i] 放到lt+1
+                ArrayUtils.swap(arr, i, ++lt);
+                ++i;
+            } else if (arr[i] == pivotVal) {
+                ++i;
+            } else {
+                ArrayUtils.swap(arr, i, --gt);
+            }
+        }
+        // 将rightIdx pivotVal放到中间区域
+        ArrayUtils.swap(arr, rightIdx, gt);
+
+        // 分别对大区间、小区间执行快排
+        quickSortThreeWays(arr, leftIdx, lt);
+        quickSortThreeWays(arr, gt, rightIdx);
+    }
+
     private static void quickSort(int[] arr, int leftIdx, int rightIdx) {
         if (leftIdx >= rightIdx) {
             return;
         }
-        int pivotIdx = partitionPengdi(arr, leftIdx, rightIdx);
-        quickSort(arr, leftIdx, pivotIdx - 1);
-        // 使用pengdi版本算法，在右区间需传入pivotIdx
-        quickSort(arr, pivotIdx, rightIdx);
-
-//        int pivotIdx = partition(arr, leftIdx, rightIdx);
-//        // 因为pivot值已经放在正确位置上了，所以这里是 pivotIdx-1
+//        int pivotIdx = partitionPengdi(arr, leftIdx, rightIdx);
 //        quickSort(arr, leftIdx, pivotIdx - 1);
-//        quickSort(arr, pivotIdx+1, rightIdx);
+//        // 使用pengdi版本算法，在右区间需传入pivotIdx
+//        quickSort(arr, pivotIdx, rightIdx);
+
+        if (rightIdx - leftIdx < 15) {
+            ShellSort.insertSort(arr, leftIdx, rightIdx, rightIdx - leftIdx + 1);
+            return;
+        }
+
+        int pivotIdx = partitionOptimized(arr, leftIdx, rightIdx);
+        // 因为pivot值已经放在正确位置上了，所以这里是 pivotIdx-1
+        quickSort(arr, leftIdx, pivotIdx - 1);
+        quickSort(arr, pivotIdx + 1, rightIdx);
     }
 
     /**
@@ -92,6 +141,39 @@ public class QuickSort {
             }
         }
         return j - 1;
+    }
+
+    // 优化partition，数组中等值元素过多时，原来的算法会导致左侧小区间过大，分区不平衡，导致算法性能不佳
+    // 使用两个遍历指针，往中间靠拢。左指针寻找>待查找值的元素，右指针寻找<待查找值的元素，这样两边找到等值元素后都会保留在对应侧区间。
+    private static int partitionOptimized(int[] arr, int leftIdx, int rightIdx) {
+        // 避免每次最右侧元素过大或者过小：导致分区不平衡，我们随机一下
+        int randomIdx = NumberUtils.randomIndexWithRange(leftIdx, rightIdx);
+        ArrayUtils.swap(arr, rightIdx, randomIdx);
+        // 待查找值，我们取最右侧元素
+        int val = arr[rightIdx];
+
+        // 两个遍历指针
+        int i = leftIdx;
+        int j = rightIdx - 1;
+
+        while (true) {
+            // i、j 元素比较大小时，不能使用 = ，否则也会造成左右区间不平衡，等值元素左右侧均可放，所以对等值元素做交换处理
+            while (i < rightIdx && arr[i] < val) {
+                ++i;
+            }
+            while (j >= leftIdx && arr[j] > val) {
+                --j;
+            }
+            if (i >= j) {
+                break;
+            }
+            ArrayUtils.swap(arr, i, j);
+            ++i;
+            --j;
+        }
+        // 循环终止时，j到了 小区间，i到了大区间
+        ArrayUtils.swap(arr, i, rightIdx);
+        return i;
     }
 
     /**

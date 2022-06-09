@@ -49,7 +49,7 @@ public class ShellSort {
         insertSort(arr, 0, arr.length - 1, arr.length);
     }
 
-    public void insertSort(int[] arr, int groupStartIdx, int groupEndIdx, int size) {
+    public static void insertSort(int[] arr, int groupStartIdx, int groupEndIdx, int size) {
         for (int startIdx = groupStartIdx; startIdx <= groupEndIdx; startIdx++) {
             int curr = arr[startIdx];
             int currIdx = startIdx - 1;

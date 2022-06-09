@@ -1,5 +1,6 @@
 package com.algorithm.util;
 
+import java.lang.reflect.Method;
 import java.util.stream.IntStream;
 
 public class ArrayUtils {
@@ -110,6 +111,38 @@ public class ArrayUtils {
             System.out.print(ele + " ");
         }
         System.out.println();
+    }
+
+    // copied from https://github.com/liuyubobobo/Play-with-Algorithms ↓↓↓
+    // 判断arr数组是否有序
+    public static boolean isSorted(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++)
+            if (arr[i] > arr[i + 1]) return false;
+        return true;
+    }
+    // 测试sortClassName所对应的排序算法排序arr数组所得到结果的正确性和算法运行时间
+    // 将算法的运行时间打印在控制台上
+    public static void testSort(String sortClassName, String sortMethodName, int[] arr) {
+
+        // 通过Java的反射机制，通过排序的类名，运行排序函数
+        try {
+            // 通过sortClassName获得排序函数的Class对象
+            Class<?> sortClass = Class.forName(sortClassName);
+            // 通过排序函数的Class对象获得排序方法
+            Method sortMethod = sortClass.getMethod(sortMethodName, int[].class);
+            // 排序参数只有一个，是可比较数组arr
+            Object[] params = new Object[]{arr};
+
+            long startTime = System.currentTimeMillis();
+            // 调用排序函数
+            sortMethod.invoke(null, params);
+            long endTime = System.currentTimeMillis();
+
+            assert isSorted(arr);
+            System.out.println(sortClass.getSimpleName() + " : " + (endTime - startTime) + "ms");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
