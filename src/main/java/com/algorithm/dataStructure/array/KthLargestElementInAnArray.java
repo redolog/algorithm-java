@@ -1,6 +1,8 @@
 package com.algorithm.dataStructure.array;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * 215. 数组中的第K个最大元素
@@ -143,6 +145,34 @@ public class KthLargestElementInAnArray {
             }
         }
         return minHeap.peekMin();
+    }
+
+    /**
+     * 执行用时：
+     * 3 ms
+     * , 在所有 Java 提交中击败了
+     * 61.15%
+     * 的用户
+     * 内存消耗：
+     * 41.8 MB
+     * , 在所有 Java 提交中击败了
+     * 10.47%
+     * 的用户
+     * 通过测试用例：
+     * 32 / 32
+     */
+    public int findKthLargestWithPriorityQueue(int[] nums, int k) {
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Comparator.naturalOrder());
+        for (int i = 0; i < k; i++) {
+            priorityQueue.offer(nums[i]);
+        }
+        for (int i = k; i < nums.length; i++) {
+            if (nums[i] > priorityQueue.peek()) {
+                priorityQueue.poll();
+                priorityQueue.offer(nums[i]);
+            }
+        }
+        return priorityQueue.peek();
     }
 
     /**
