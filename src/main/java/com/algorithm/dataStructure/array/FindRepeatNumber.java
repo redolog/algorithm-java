@@ -47,26 +47,23 @@ public class FindRepeatNumber {
         // 将nums数据有序化，对齐 i下标与iVal
         int i = 0;
         // 每次将 nums[i]下标的数据归位
-        while (true) {
-            if (i > n - 1) {
-                return -1;
-            }
-
+        while (i < n) {
             if (nums[i] == i) {
                 // 当前i位置值已经有序化
                 ++i;
-            } else {
-                // nums[i]下标的数据归位
-                int tmp = nums[nums[i]];
-                if (tmp == nums[i]) {
-                    // 当前nums[i]位置的值已经等于了i位置的值，说明是之前替换或者本来就有序就位的，为所求重复项
-                    return nums[i];
-                }
-
-                nums[nums[i]] = nums[i];
-                nums[i] = tmp;
+                continue;
             }
+            // nums[i]下标的数据归位
+            int tmp = nums[nums[i]];
+            if (tmp == nums[i]) {
+                // 当前nums[i]位置的值已经等于了i位置的值，说明是之前替换或者本来就有序就位的，为所求重复项
+                return nums[i];
+            }
+
+            nums[nums[i]] = nums[i];
+            nums[i] = tmp;
         }
+        return -1;
     }
 
     /*
