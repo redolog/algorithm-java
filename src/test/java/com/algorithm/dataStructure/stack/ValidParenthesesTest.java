@@ -20,5 +20,6 @@ public class ValidParenthesesTest {
 
         assertTrue(service.isValid("{}"));
         assertFalse(service.isValid("{|}"));
+        assertFalse(service.isValid("){"));
     }
 }

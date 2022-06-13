@@ -1,9 +1,6 @@
 package com.algorithm.dataStructure.stack;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 20. 有效的括号
@@ -42,11 +39,52 @@ import java.util.Map;
 
 public class ValidParentheses {
 
+    /*
+     * 执行用时：
+     * 1 ms
+     * , 在所有 Java 提交中击败了
+     * 98.96%
+     * 的用户
+     * 内存消耗：
+     * 39 MB
+     * , 在所有 Java 提交中击败了
+     * 98.54%
+     * 的用户
+     * 通过测试用例：
+     * 91 / 91
+     */
     public boolean isValid(String s) {
-        if (null == s || s.isEmpty() || s.length() % 2 != 0) {
+        if (s == null || s.isEmpty() || s.length() % 2 != 0) {
             return false;
         }
-        return iterateInOrderVersion(s);
+        // 使用一个栈结构保存遍历结果，给定s可以提前确定栈的最大长度，此举可提高空间效率
+        Deque<Character> stack = new ArrayDeque<>(s.length() / 2 + 1);
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+                continue;
+            }
+            if (stack.isEmpty()) {
+                return false;
+            }
+
+            // 左括号
+            char left = stack.pop();
+            if (left == '(') {
+                if (c != ')') {
+                    return false;
+                }
+            } else if (left == '[') {
+                if (c != ']') {
+                    return false;
+                }
+            } else if (left == '{') {
+                if (c != '}') {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
     }
 
     private boolean cacheParenthesesVersion(String s) {
