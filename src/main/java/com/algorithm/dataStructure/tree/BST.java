@@ -181,7 +181,7 @@ public class BST {
                 return node.left;
             }
             // val等值节点同时有左右子节点，删除右子树下的最小节点，同时将右子树最小节点替换到node的位置
-            TreeNode rightMini = new TreeNode(miniNode(node.right));
+            TreeNode rightMini = miniNode(node.right);
             rightMini.right = removeMin(node.right);
             rightMini.left = node.left;
             return rightMini;
