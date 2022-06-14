@@ -79,7 +79,7 @@ public class DeleteNodeInABst {
      * 3. 找到了待删节点：
      * - 判断是否只有一个子节点，如果是，直接用另一边的子树节点顶上；
      * - 如果不是，找到右子树最小节点，替换到当前节点位置，并删除；
-     * - 1962年，Hubbard 提出，Hubbard Deletion算法
+     * - 1962年，Hibbard 提出，Hibbard Deletion算法
      *
      * @param root 当前树根
      * @param val  待删除节点
