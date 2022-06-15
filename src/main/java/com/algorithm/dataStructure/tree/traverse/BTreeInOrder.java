@@ -27,23 +27,16 @@ public class BTreeInOrder {
      * 整个左边界依次入栈
      */
     public static void inOrderStack(TreeNode node) {
-        if (node == null) {
-            return;
-        }
         Deque<TreeNode> stack = new LinkedList<>();
-        stack.push(node);
 
         while (!stack.isEmpty() || node != null) {
-            if (node != null) {
-                // 整个左边界依次入栈
+            while (node != null) {
                 stack.push(node);
                 node = node.left;
-            } else {
-                // 当前节点无子节点 或者 子节点已处理完，打印当前节点
-                node = stack.pop();
-                System.out.println(node.val);
-                node = node.right;
             }
+            node = stack.pop();
+            System.out.println(node.val);
+            node = node.right;
         }
     }
 }

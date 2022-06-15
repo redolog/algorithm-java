@@ -1,5 +1,8 @@
 package com.algorithm.dataStructure.tree;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * 98. 验证二叉搜索树
  * 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
@@ -45,6 +48,26 @@ public class IsValidBst {
         }
         preVal = root.val;
         return isValidBSTInOrder(root.right);
+    }
+
+    public boolean isValidBSTInOrderWithStack(TreeNode node) {
+        long preVal = Long.MIN_VALUE;
+        Deque<TreeNode> stack = new LinkedList<>();
+
+        while (!stack.isEmpty() || node != null) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            node = stack.pop();
+            if (preVal >= node.val) {
+                return false;
+            }
+
+            preVal = node.val;
+            node = node.right;
+        }
+        return true;
     }
 
     public boolean isValidBSTWithRange(TreeNode root) {
