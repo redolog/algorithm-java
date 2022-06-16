@@ -80,7 +80,7 @@ public class MaxHeap {
         }
         elements[size] = element;
         // 从下往上遍历父子节点，检查是否满足最大堆性质：任意子节点小于等于父节点
-        heapify2Up(size);
+        siftUp(size);
         ++size;
         return true;
     }
@@ -91,7 +91,7 @@ public class MaxHeap {
      *
      * @param childIdx 当前子节点下标
      */
-    private void heapify2Up(int childIdx) {
+    private void siftUp(int childIdx) {
         int parentIdx = getParentIdx(childIdx);
         while (parentIdx >= 0 && childIdx < elements.length && elements[parentIdx] < elements[childIdx]) {
             // 父节点小于子节点时，交换两个节点的值
@@ -118,7 +118,11 @@ public class MaxHeap {
 
         --size;
 
-        heapifyToDown(topIdx);
+        siftDown(topIdx);
+    }
+
+    public int peekMax() {
+        return elements[0];
     }
 
     /**
@@ -126,7 +130,7 @@ public class MaxHeap {
      *
      * @param parentIdx 父节点下标
      */
-    private void heapifyToDown(int parentIdx) {
+    private void siftDown(int parentIdx) {
         int leftChildIdx = getLeftChildIdx(parentIdx);
         int rightChildIdx = getRightChildIdx(parentIdx);
         while (leftChildIdx <= size || rightChildIdx <= size) {
