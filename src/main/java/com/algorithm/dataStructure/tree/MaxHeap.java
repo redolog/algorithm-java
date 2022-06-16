@@ -177,7 +177,7 @@ public class MaxHeap {
         int parentIdx = getParentIdx(lastChildIdx);
         for (; parentIdx >= 0; parentIdx--) {
             // 控制树的倒数第二层遍历。父节点对比左右子节点，即从上往下堆化
-            parentIdx = heapify(arr, lastChildIdx, parentIdx);
+            parentIdx = buildHeap(arr, lastChildIdx, parentIdx);
         }
     }
 
@@ -185,7 +185,7 @@ public class MaxHeap {
      * 堆化：
      * 每一轮堆化操作复杂度与节点高成正比，复杂度 O(logn)
      */
-    public static int heapify(int[] arr, int lastChildIdx, int parentIdx) {
+    public static int buildHeap(int[] arr, int lastChildIdx, int parentIdx) {
         while (true) {
             // 判断当前父子节点值大小关系，同时向下遍历子树
             int biggerIdx = parentIdx;
