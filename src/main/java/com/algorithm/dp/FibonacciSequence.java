@@ -1,8 +1,5 @@
 package com.algorithm.dp;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 剑指 Offer 10- I. 斐波那契数列
  * 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下：
@@ -35,34 +32,65 @@ import java.util.Map;
  */
 public class FibonacciSequence {
 
-    Map<Integer, Integer> cache = new HashMap<Integer, Integer>() {{
-        put(0, 0);
-        put(1, 1);
-    }};
+    int[] cache;
+
+    /**
+     * 执行用时：
+     * 0 ms
+     * , 在所有 Java 提交中击败了
+     * 100.00%
+     * 的用户
+     * 内存消耗：
+     * 38.1 MB
+     * , 在所有 Java 提交中击败了
+     * 58.15%
+     * 的用户
+     * 通过测试用例：
+     * 51 / 51
+     */
+    public int fibWithTablation(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        int[] table = new int[n + 1];
+        table[0] = 0;
+        table[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            table[i] = (table[i - 1] + table[i - 2]) % 1000000007;
+        }
+        return table[n];
+    }
 
     public int fib(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        cache = new int[n + 1];
+        cache[0] = 0;
+        cache[1] = 1;
         return recurse(n);
     }
 
+    /**
+     * 执行用时：
+     * 0 ms
+     * , 在所有 Java 提交中击败了
+     * 100.00%
+     * 的用户
+     * 内存消耗：
+     * 38.4 MB
+     * , 在所有 Java 提交中击败了
+     * 15.82%
+     * 的用户
+     * 通过测试用例：
+     * 51 / 51
+     */
     private int recurse(int n) {
-        if (n == 0 || n == 1) {
-            return cache.get(n);
+        if (n == 0 || n == 1 || cache[n] != 0) {
+            return cache[n];
         }
-        int nSubtract1 = cache(n, 1);
-        int nSubtract2 = cache(n, 2);
-        return nSubtract1 + nSubtract2;
+        cache[n] = (recurse(n - 1) + recurse(n - 2)) % 1000000007;
+        return cache[n];
     }
-
-    private int cache(int n, int x) {
-        int val;
-        if (cache.containsKey(n - x)) {
-            val = cache.get(n - x);
-        } else {
-            val = recurse(n - x);
-            cache.put(n - x, val);
-        }
-        return val;
-    }
-
 
 }
