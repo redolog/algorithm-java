@@ -62,17 +62,31 @@ public class FindMinimumInRotatedSortedArray {
         int n = nums.length;
         int l = 0, r = n - 1;
 
-        // r不管怎么变，都小于l值
+        while (l < r) {
+            int mid = l + ((r - l) >> 1);
+
+            if (nums[r] > nums[mid]) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return nums[l];
+    }
+
+    public int findMinOld2(int[] nums) {
+        int n = nums.length;
+        int l = 0, r = n - 1;
+
         while (l < r) {
             int mid = l + ((r - l) >> 1);
 
             if ((nums[l] < nums[mid] && nums[mid] < nums[r]) || (l == mid && nums[l] < nums[r])) {
                 break;
             }
-
-            if (nums[r] >= nums[mid]) {
+            if (nums[l] > nums[mid]) {
                 r = mid;
-            } else if (nums[mid] >= nums[l]) {
+            } else {
                 l = mid + 1;
             }
         }
