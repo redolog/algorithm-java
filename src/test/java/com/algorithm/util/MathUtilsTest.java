@@ -1,5 +1,6 @@
 package com.algorithm.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -23,4 +24,17 @@ public class MathUtilsTest {
     public void lcm() {
         assertEquals(48, MathUtils.lcm(12, 16));
     }
+
+    @Test
+    public void testIsEvenOdd() {
+        int n = 10000;
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 0) {
+                Assert.assertTrue(MathUtils.isEven(i));
+            } else {
+                Assert.assertTrue(MathUtils.isOdd(i));
+            }
+        }
+    }
+
 }
