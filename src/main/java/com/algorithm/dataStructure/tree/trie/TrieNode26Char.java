@@ -26,8 +26,4 @@ public class TrieNode26Char {
         this.children = new TrieNode26Char[26];
     }
 
-
-    public static void main(String[] args) {
-        System.out.println((int) 'a');
-    }
 }
