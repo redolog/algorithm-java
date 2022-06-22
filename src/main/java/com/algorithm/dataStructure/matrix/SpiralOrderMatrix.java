@@ -96,4 +96,35 @@ public class SpiralOrderMatrix {
         return ansList;
     }
 
+    public List<Integer> spiralOrderOfficial(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int total = m * n;
+        List<Integer> ans = new ArrayList<>(total);
+        // 控制方向：向右、向下、向左、向上
+        int[][] directions = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        // 每轮方向下标，directionIdx=(directionIdx+1)%4
+        int directionIdx = 0;
+        // 标记矩阵遍历状态
+        boolean[][] used = new boolean[m][n];
+
+        int row = 0, col = 0;
+        for (int i = 0; i < total; i++) {
+            used[row][col] = true;
+            ans.add(matrix[row][col]);
+
+            int[] direction = directions[directionIdx];
+            int nextRow = row + direction[0];
+            int nextCol = col + direction[1];
+            if (nextRow < 0 || nextRow > m - 1 || nextCol < 0 || nextCol > n - 1 || used[nextRow][nextCol]) {
+                // 行列越界、之前已经遍历过的圈：换方向
+                directionIdx = (directionIdx + 1) % 4;
+            }
+            row += directions[directionIdx][0];
+            col += directions[directionIdx][1];
+        }
+
+        return ans;
+    }
+
 }
