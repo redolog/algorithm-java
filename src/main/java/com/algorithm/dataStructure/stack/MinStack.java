@@ -37,35 +37,72 @@ import java.util.LinkedList;
  * <p>
  * pop、top 和 getMin 操作总是在 非空栈 上调用。
  *
- * @author DragonSong  @date 2021/1/7
+ * @author DragonSong  @date 2022/6/24
  * @link {https://leetcode-cn.com/problems/min-stack/}
  */
 public class MinStack {
 
-    // 每次操作用数组记录当前值，最小值
-    Deque<int[]> stack;
+    /**
+     * 执行用时：
+     * 4 ms
+     * , 在所有 Java 提交中击败了
+     * 93.20%
+     * 的用户
+     * 内存消耗：
+     * 43.4 MB
+     * , 在所有 Java 提交中击败了
+     * 24.46%
+     * 的用户
+     * 通过测试用例：
+     * 31 / 31
+     */
+
+    Deque<Integer> stackFull;
+    // 存储局部最小元素
+    Deque<Integer> stackMini;
+
+    public MinStack() {
+        stackFull = new LinkedList<>();
+        stackMini = new LinkedList<>();
+    }
 
     /**
-     * initialize your data structure here.
+     * stackFull 不管怎样，都要push
+     * stackMini空，插入第一个最小元素，当前值小于mini顶，插入
      */
-    public MinStack() {
-        stack = new LinkedList<>();
-    }
-
-    public void push(int x) {
-        stack.push(new int[]{x, Math.min(stack.peek() != null ? stack.peek()[1] : x, x)});
-    }
-
-    public void pop() {
-        stack.pop();
+    public void push(int val) {
+        stackFull.push(val);
+        if (stackMini.isEmpty() || stackMini.peek() >= val) {
+            stackMini.push(val);
+        }
     }
 
     public int top() {
-        return stack == null || stack.isEmpty() ? 0 : stack.peek()[0];
+        if (stackFull.isEmpty()) {
+            return -1;
+        }
+        return stackFull.peek();
+    }
+
+    public int pop() {
+        Integer val = stackFull.pop();
+        // 如果出栈了当前mini顶最小的元素，mini跟着出栈
+        if (!stackMini.isEmpty() && stackMini.peek().equals(val)) {
+            stackMini.pop();
+        }
+        return val == null ? -1 : val;
     }
 
     public int getMin() {
-        return stack == null || stack.isEmpty() ? 0 : stack.peek()[1];
+        if (stackMini.isEmpty()) {
+            return -1;
+        }
+        return stackMini.peek();
+    }
+
+    public void clear() {
+        stackFull.clear();
+        stackMini.clear();
     }
 }
 
