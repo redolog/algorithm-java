@@ -63,6 +63,23 @@ public class ArrayUtils {
         return arr;
     }
 
+    public static int[] createRandomArrayBySize(int size) {
+        if (size < 1) {
+            return new int[0];
+        }
+        int[] arr = new int[size];
+        for (int i = 0; i < size; i++) {
+            arr[i] = i;
+        }
+        // 稍微打乱一下
+        for (int i = 0; i < size / 2; i++) {
+            int aIdx = NumberUtils.randomIndex(size);
+            int bIdx = NumberUtils.randomIndex(size);
+            swap(arr, aIdx, bIdx);
+        }
+        return arr;
+    }
+
     public static int[] createFullyOrderedArray(int size) {
         if (size < 1) {
             return new int[0];
