@@ -80,4 +80,39 @@ public class BinaryTreeRightSideView {
         }
         return ansList;
     }
+
+    /**
+     * 执行用时：
+     * 0 ms
+     * , 在所有 Java 提交中击败了
+     * 100.00%
+     * 的用户
+     * 内存消耗：
+     * 39.9 MB
+     * , 在所有 Java 提交中击败了
+     * 75.37%
+     * 的用户
+     * 通过测试用例：
+     * 215 / 215
+     */
+    public List<Integer> rightSideViewWithDfs(TreeNode root) {
+        List<Integer> ansList = new LinkedList<>();
+
+        int level = 1;
+        dfs(root, ansList, level);
+
+        return ansList;
+    }
+
+    private void dfs(TreeNode node, List<Integer> ansList, int level) {
+        if (node == null) {
+            return;
+        }
+        // 添加每层加入的第一个节点
+        if (ansList.size() == level - 1) {
+            ansList.add(node.val);
+        }
+        dfs(node.right, ansList, level + 1);
+        dfs(node.left, ansList, level + 1);
+    }
 }
