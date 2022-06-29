@@ -42,11 +42,74 @@ public class SetMatrixZeros {
      * 取巧解：
      * 1. 使用0行0列记录行列0值情况，不额外申请空间
      * 2. 同时提前判断0行0列原本0值的情况，使用boolean标记，最后刷新0行0列
-     *
-     * 这个思路没看题解没想到
+     * <p>
+     * 一个核心的点在于 0,0 位置，如果不提前判断，无法得知是否为后续首行首列的某个值将其置为0的
+     * 0,0 位置 ==0：首行首列在标记完之后都得=0
+     * 0,0 位置 !=0：不动
+     * <p>
+     * 执行用时：
+     * 0 ms
+     * , 在所有 Java 提交中击败了
+     * 100.00%
+     * 的用户
+     * 内存消耗：
+     * 42.8 MB
+     * , 在所有 Java 提交中击败了
+     * 67.48%
+     * 的用户
+     * 通过测试用例：
+     * 164 / 164
      */
-    public void setZeroesZeroRowCol(int[][] matrix) {
-        // todo 不是自己想的方案，就不写代码了
+    public int[][] setZeroesZeroRowCol(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        // 使用第一列记录该行是否需要置为0，本身某行出现了0值时，matrix[row][0]就应该==0
+        // 一行一列是否有0
+        boolean row0Zero = false;
+        boolean col0Zero = false;
+        for (int row = 0; row < m; row++) {
+            if (matrix[row][0] == 0) {
+                col0Zero = true;
+                break;
+            }
+        }
+        for (int col = 0; col < n; col++) {
+            if (matrix[0][col] == 0) {
+                row0Zero = true;
+                break;
+            }
+        }
+
+        // 判断 是否有0
+        for (int row = 1; row < m; row++) {
+            for (int col = 1; col < n; col++) {
+                if (matrix[row][col] == 0) {
+                    matrix[row][0] = 0;
+                    matrix[0][col] = 0;
+                }
+            }
+        }
+        // 将 第二行第二列开始 置0
+        for (int row = 1; row < m; row++) {
+            for (int col = 1; col < n; col++) {
+                if (matrix[row][0] == 0 || matrix[0][col] == 0) {
+                    matrix[row][col] = 0;
+                }
+            }
+        }
+        // 处理第一行第一列
+        if (col0Zero) {
+            for (int row = 0; row < m; row++) {
+                matrix[row][0] = 0;
+            }
+        }
+        if (row0Zero) {
+            for (int col = 0; col < n; col++) {
+                matrix[0][col] = 0;
+            }
+        }
+        return matrix;
     }
 
     /**
