@@ -94,8 +94,8 @@ public class RottingOranges {
     }
 
     /**
-     * java中contains数组，或者说数组类型的equals，由于放在set中，判断 a.equals(b) 时，由于泛型擦除，不会调用 Arrays.arraysEquals
-     * 而普通对象这里的 equals 返回为 false，因此使用set此题解不过。
+     * java中contains数组，或者说数组类型的equals，由于放在set中，map底层调用hashcode查找node
+     * 而Array对象这里的 hashcode 不同，因此使用set此题解不过。
      */
     public int orangesRottingWithSet(int[][] grid) {
         int m = grid.length;
