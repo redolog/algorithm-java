@@ -61,11 +61,6 @@ public class RottingOranges {
             }
         }
 
-//        // 腐烂的没有 或者 全腐烂了
-//        if (pointQ.isEmpty() || pointQ.size() == m * n) {
-//            return -1;
-//        }
-
         int minutes = 0;
         int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         while (!pointQ.isEmpty() && freshCnt > 0) {
