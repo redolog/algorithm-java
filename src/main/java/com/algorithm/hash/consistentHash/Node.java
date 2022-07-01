@@ -1,9 +1,6 @@
 package com.algorithm.hash.consistentHash;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 节点，负责存储、运算
@@ -60,11 +57,33 @@ public class Node {
         return key2Data.get(key);
     }
 
+    boolean containsKey(String key) {
+        return key2Data.containsKey(key);
+    }
+
+    void reloadByKey(String key) {
+//        System.out.println("从db拉取缓存数据");
+        put(key, Integer.parseInt(key.substring(3)));
+    }
+
     @Override
     public String toString() {
         return "Node{" +
                 "ip='" + ip + '\'' +
                 ", port=" + port +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Node)) return false;
+        Node node = (Node) o;
+        return port == node.port && Objects.equals(ip, node.ip);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ip, port);
     }
 }

@@ -1,5 +1,7 @@
 package com.algorithm.util;
 
+import java.util.List;
+
 public class NumberUtils {
 
     private NumberUtils() {
@@ -20,6 +22,17 @@ public class NumberUtils {
 
         for (int i = 1; i < nums.length; i++) {
             if (MathUtils.abs(nums[i] - first) > precision) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean nearlyEquals(int precision, List<Integer> nums) {
+        int first = nums.get(0);
+
+        for (int i = 1; i < nums.size(); i++) {
+            if (MathUtils.abs(nums.get(i) - first) > precision) {
                 return false;
             }
         }
