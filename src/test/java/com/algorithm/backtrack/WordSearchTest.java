@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.graph;
+package com.algorithm.backtrack;
 
 import org.junit.Assert;
 import org.junit.Test;
