@@ -40,6 +40,9 @@ public class TreeNode {
         this.val = val;
     }
 
+    public TreeNode() {
+    }
+
     public static boolean invalidVal(Integer val) {
         return val == null || val == INVALID_VAL;
     }
