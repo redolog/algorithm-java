@@ -1,4 +1,4 @@
-package com.algorithm.juc;
+package com.algorithm.alibaba;
 
 /**
  * 题目原型：
