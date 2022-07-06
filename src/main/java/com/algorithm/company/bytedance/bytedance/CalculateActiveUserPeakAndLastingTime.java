@@ -1,4 +1,4 @@
-package com.algorithm.bytedance;
+package com.algorithm.company.bytedance.bytedance;
 
 import java.util.*;
 import java.util.stream.Collectors;

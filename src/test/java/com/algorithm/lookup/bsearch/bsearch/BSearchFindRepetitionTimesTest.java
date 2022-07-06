@@ -1,8 +1,8 @@
-package com.algorithm.bsearch;
+package com.algorithm.lookup.bsearch.bsearch;
 
 import org.junit.Test;
 
-import static com.algorithm.bsearch.BSearchFindRepetitionTimes.bsearchFindRepetitionTimes;
+import static com.algorithm.lookup.bsearch.bsearch.BSearchFindRepetitionTimes.bsearchFindRepetitionTimes;
 import static org.junit.Assert.assertEquals;
 
 public class BSearchFindRepetitionTimesTest {

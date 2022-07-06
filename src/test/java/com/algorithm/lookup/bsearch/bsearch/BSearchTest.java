@@ -1,4 +1,4 @@
-package com.algorithm.bsearch;
+package com.algorithm.lookup.bsearch.bsearch;
 
 import com.algorithm.util.ArrayUtils;
 import org.junit.Assert;
@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.algorithm.bsearch.BSearch.bsearch;
-import static com.algorithm.bsearch.BSearch.bsearchRecursive;
+import static com.algorithm.lookup.bsearch.bsearch.BSearch.bsearch;
+import static com.algorithm.lookup.bsearch.bsearch.BSearch.bsearchRecursive;
 import static org.junit.Assert.assertEquals;
 
 public class BSearchTest {

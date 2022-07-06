@@ -1,4 +1,4 @@
-package com.algorithm.bsearch;
+package com.algorithm.lookup.bsearch.bsearch;
 
 import org.junit.Assert;
 import org.junit.Test;

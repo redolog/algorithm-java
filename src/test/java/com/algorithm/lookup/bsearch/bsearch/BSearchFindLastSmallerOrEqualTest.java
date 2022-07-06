@@ -1,8 +1,8 @@
-package com.algorithm.bsearch;
+package com.algorithm.lookup.bsearch.bsearch;
 
 import junit.framework.TestCase;
 
-import static com.algorithm.bsearch.BSearchFindLastSmallerOrEqual.bsearchFindLastSmallerOrEqual;
+import static com.algorithm.lookup.bsearch.bsearch.BSearchFindLastSmallerOrEqual.bsearchFindLastSmallerOrEqual;
 
 
 public class BSearchFindLastSmallerOrEqualTest extends TestCase {

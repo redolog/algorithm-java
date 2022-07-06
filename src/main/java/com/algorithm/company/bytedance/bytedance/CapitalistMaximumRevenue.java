@@ -1,4 +1,4 @@
-package com.algorithm.bytedance;
+package com.algorithm.company.bytedance.bytedance;
 
 /**
  * Shen 是一个财主，有一天他发现自己家的后山居然是一个金矿，目测金矿采之不竭。

@@ -1,8 +1,8 @@
-package com.algorithm.bsearch;
+package com.algorithm.lookup.bsearch.bsearch;
 
 import org.junit.Test;
 
-import static com.algorithm.bsearch.BSearchFindUnique.bsearchFindUnique;
+import static com.algorithm.lookup.bsearch.bsearch.BSearchFindUnique.bsearchFindUnique;
 import static org.junit.Assert.assertEquals;
 
 public class BSearchFindUniqueTest {
