@@ -15,6 +15,44 @@ import java.util.stream.Collectors;
  */
 public class CalculateActiveUserPeakAndLastingTime {
 
+    public int[] calculateActiveUserPeakAndLastingTimeBF(Log[] logs) {
+        // O(n^2)
+        // 遍历当前日志range：当前时刻在线人数 叠加
+        Map<Integer, Integer> second2Cnt = new LinkedHashMap<>();
+        for (Log log : logs) {
+            int loginTime = log.loginTime;
+            int logoutTime = log.logoutTime;
+            // 遍历每一秒
+            for (int second = loginTime; second <= logoutTime; second++) {
+                second2Cnt.put(second, second2Cnt.getOrDefault(second, 0) + 1);
+            }
+        }
+
+        int[] ans = new int[2];
+        Integer activeUserPeak = second2Cnt.values().stream().max(Comparator.comparingInt(i -> i)).orElse(0);
+        ans[0] = activeUserPeak;
+
+        int maxCnt = 0;
+        List<Integer> activeUserPeakSeconds = second2Cnt.entrySet().stream().filter(entry -> entry.getValue().equals(activeUserPeak)).map(Map.Entry::getKey).collect(Collectors.toList());
+
+        // O(n)
+        for (int i = 0; i < activeUserPeakSeconds.size(); ) {
+            int j = i;
+            int groupSeconds = 1;
+            for (; j < activeUserPeakSeconds.size(); j++) {
+                if (continuous(activeUserPeakSeconds.get(i), activeUserPeakSeconds.get(i + 1))) {
+                    groupSeconds++;
+                } else {
+                    break;
+                }
+            }
+            maxCnt = Math.max(maxCnt, groupSeconds);
+            i = j;
+        }
+        ans[1] = maxCnt;
+        return ans;
+    }
+
     public int[] calculateActiveUserPeakAndLastingTime(Log[] logs) {
         // 上线时刻-》人数
         Map<Integer, Integer> loginTime2Cnt = new LinkedHashMap<>();
