@@ -37,4 +37,17 @@ public class Decimal2Binary {
         ans = remainder + ans;
         return decimal2BinaryStr(quotient, ans);
     }
+
+    static class Traversal {
+        public static String decimal2BinaryStr(int decimal, String ans) {
+            while (decimal > 0) {
+                int quotient = decimal / 2;
+                int remainder = decimal % 2;
+
+                ans = remainder + ans;
+                decimal = quotient;
+            }
+            return "0" + ans;
+        }
+    }
 }
