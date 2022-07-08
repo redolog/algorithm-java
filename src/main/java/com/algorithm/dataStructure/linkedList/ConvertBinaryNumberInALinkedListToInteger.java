@@ -70,6 +70,28 @@ public class ConvertBinaryNumberInALinkedListToInteger {
         return ans;
     }
 
+    public int getDecimalValue2(ListNode head) {
+        int ans = 0;
+        while (head != null) {
+            // * 2 表示进位
+            ans = ans * 2 + head.val;
+            head = head.next;
+        }
+        return ans;
+    }
+
+    public int getDecimalValue3(ListNode head) {
+        int ans = 0;
+        while (head != null) {
+            // 先左移一位
+            ans = ans << 1;
+            // 再加上当前head的0或者1
+            ans = ans | head.val;
+            head = head.next;
+        }
+        return ans;
+    }
+
     private int getLen(ListNode head) {
         if (head == null) {
             return 0;
