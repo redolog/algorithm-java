@@ -1,6 +1,7 @@
 package com.algorithm.util;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class ArrayUtils {
@@ -160,6 +161,10 @@ public class ArrayUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean contains(Object[] arr,Object element){
+        return Arrays.asList(arr).contains(element);
     }
 
 }
