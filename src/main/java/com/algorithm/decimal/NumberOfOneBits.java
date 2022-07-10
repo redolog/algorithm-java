@@ -1,4 +1,4 @@
-package com.algorithm.bit;
+package com.algorithm.decimal;
 
 /**
  * 191. 位1的个数

@@ -1,4 +1,4 @@
-package com.algorithm.bit;
+package com.algorithm.decimal;
 
 public class PrintNumBit32 {
 
