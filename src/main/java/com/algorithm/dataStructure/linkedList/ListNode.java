@@ -95,4 +95,12 @@ public class ListNode {
         return dummy.next;
     }
 
+    public ListNode getNext() {
+        return next;
+    }
+
+    public void printValue() {
+        System.out.println(val);
+    }
+
 }
