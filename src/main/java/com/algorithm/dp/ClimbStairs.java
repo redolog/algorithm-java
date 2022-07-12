@@ -76,4 +76,24 @@ public class ClimbStairs {
         }
         return table[n];
     }
+
+    static class DP {
+        /**
+         * 爬n个楼梯的方案：爬n-1个楼梯的方案+爬n-2个楼梯的方案
+         * f(n)=f(n-1)+f(n-2)
+         */
+        public int climbStairs(int n) {
+            // 一阶跟零阶，都只有一种方案
+            if (n == 1 || n == 0) {
+                return 1;
+            }
+            int a = 1, b = 1;
+            for (int i = 2; i < n; i++) {
+                int aTmp = a;
+                a = b;
+                b = aTmp + b;
+            }
+            return a + b;
+        }
+    }
 }
