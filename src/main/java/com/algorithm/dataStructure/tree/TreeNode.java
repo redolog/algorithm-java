@@ -180,7 +180,7 @@ public class TreeNode {
             return false;
         }
         TreeNode treeNode = (TreeNode) o;
-        return val == treeNode.val && Objects.equals(left, treeNode.left) && Objects.equals(right, treeNode.right);
+        return val == treeNode.val && ((left == null && treeNode.left == null) || (left != null && left.val == treeNode.left.val)) && ((right == null && treeNode.right == null) || (right != null && right.val == treeNode.right.val));
     }
 
     @Override
