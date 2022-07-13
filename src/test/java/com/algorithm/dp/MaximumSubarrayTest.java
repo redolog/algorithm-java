@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.dp;
 
 import org.junit.Test;
 

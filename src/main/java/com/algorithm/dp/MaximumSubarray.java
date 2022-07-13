@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.dp;
 
 /**
  * 53. 最大子数组和
