@@ -39,6 +39,22 @@ package com.algorithm.dp;
 public class LongestIncreasingSubsequence {
 
     static class DP {
+
+        /*
+         * 执行用时：
+         * 63 ms
+         * , 在所有 Java 提交中击败了
+         * 14.37%
+         * 的用户
+         * 内存消耗：
+         * 41.4 MB
+         * , 在所有 Java 提交中击败了
+         * 5.10%
+         * 的用户
+         * 通过测试用例：
+         * 54 / 54
+         */
+
         /**
          * dp[i]定位以 nums[i] 元素结尾的子序列，严格递增最长长度
          * 以 nums[i] 元素结尾时，子问题无后效性
