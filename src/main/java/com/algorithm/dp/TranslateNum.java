@@ -63,14 +63,39 @@ public class TranslateNum {
     }
 
     private boolean valid(char[] numArr, int startInclusive, int endInclusive) {
-        // 十位
-        int tenBit = numArr[startInclusive] - '0';
-        int num = 10 * tenBit + numArr[endInclusive] - '0';
-        if (tenBit != 0 && num >= 0 && num <= 25) {
-            // 二位数合法，方案数=1位的+2位的
-            return true;
+        int num = 10 * (numArr[startInclusive] - '0') + numArr[endInclusive] - '0';
+        // 二位数合法，方案数=1位的+2位的
+        return num >= 10 && num <= 25;
+    }
+
+    static class ScrollArray {
+
+        /**
+         * 使用滚动数组，只维护窗口内需要的值
+         */
+        public int translateNum(int num) {
+            if (num / 10 == 0) {
+                return 1;
+            }
+            char[] numArr = String.valueOf(num).toCharArray();
+            int n = numArr.length;
+            // i2表示i-2 i1表示i-1
+            int i2 = 1;
+            int i1 = i2 + (valid(numArr, 0, 1) ? 1 : 0);
+            int ans = i1;
+            for (int i = 2; i < n; i++) {
+                ans = i1 + (valid(numArr, i - 1, i) ? i2 : 0);
+                i2 = i1;
+                i1 = ans;
+            }
+            return ans;
         }
-        // 只有1位的方案数
-        return false;
+
+        private boolean valid(char[] numArr, int startInclusive, int endInclusive) {
+            int num = 10 * (numArr[startInclusive] - '0') + numArr[endInclusive] - '0';
+            // 二位数合法，方案数=1位的+2位的
+            return num >= 10 && num <= 25;
+        }
+
     }
 }
