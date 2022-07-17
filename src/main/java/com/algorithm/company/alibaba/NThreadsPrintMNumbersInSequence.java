@@ -1,4 +1,4 @@
-package com.algorithm.company.alibaba.alibaba;
+package com.algorithm.company.alibaba;
 
 /**
  * 题目原型：
