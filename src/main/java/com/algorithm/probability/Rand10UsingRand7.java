@@ -113,7 +113,32 @@ public class Rand10UsingRand7 {
             } while (ans < 1 || ans > 10);
             return ans;
         }
-    }
 
+        /*
+         * 执行用时：
+         * 5 ms
+         * , 在所有 Java 提交中击败了
+         * 99.37%
+         * 的用户
+         * 内存消耗：
+         * 46.9 MB
+         * , 在所有 Java 提交中击败了
+         * 64.81%
+         * 的用户
+         * 通过测试用例：
+         * 12 / 12
+         */
+
+        /**
+         * 进阶：将生成的 [11,40] 区间映射到 [1,10]，提高随机生成数的利用率
+         */
+        public int rand10Advanced() {
+            int ans;
+            do {
+                ans = (rand7() - 1) * 7 + rand7() - 1;
+            } while (ans < 1 || ans > 40);
+            return ans % 10 + 1;
+        }
+    }
 
 }
