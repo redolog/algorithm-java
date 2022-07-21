@@ -138,4 +138,73 @@ public class VerticalOrderTraversalOfABinaryTree {
         dfs(node.left, x - 1, y + 1);
         dfs(node.right, x + 1, y + 1);
     }
+
+    static class Sort {
+        /**
+         * 执行用时：
+         * 2 ms
+         * , 在所有 Java 提交中击败了
+         * 98.32%
+         * 的用户
+         * 内存消耗：
+         * 41.6 MB
+         * , 在所有 Java 提交中击败了
+         * 44.80%
+         * 的用户
+         * 通过测试用例：
+         * 32 / 32
+         */
+
+        // 直接用list统计每个节点的x、y、val
+        List<int[]> nodes;
+
+        public List<List<Integer>> verticalTraversal(TreeNode root) {
+            nodes = new ArrayList<>();
+            dfs(root, 0, 0);
+            // 对统计好的数据排序，先用x排序，再用y值排序，最后用val排序
+            nodes.sort((a, b) -> {
+                if (a[0] != b[0]) {
+                    return a[0] - b[0];
+                }
+                if (a[1] != b[1]) {
+                    return a[1] - b[1];
+                }
+                return a[2] - b[2];
+            });
+
+            if (nodes.isEmpty()) {
+                return Collections.emptyList();
+            }
+
+            List<List<Integer>> ans = new ArrayList<>();
+            // 上一个横坐标
+            int prevXIdx = Integer.MIN_VALUE;
+            // i表示ans位置
+            int i = -1;
+            // j表示nodes位置
+            int j = 0;
+            while (j < nodes.size()) {
+                // 当前横坐标刚开始消费，添加新的innerList
+                if (prevXIdx != nodes.get(j)[0]) {
+                    ans.add(new ArrayList<>());
+                    i++;
+                }
+                ans.get(i).add(nodes.get(j)[2]);
+                prevXIdx = nodes.get(j)[0];
+                j++;
+            }
+
+            return ans;
+        }
+
+        private void dfs(TreeNode node, int x, int y) {
+            if (node == null) {
+                return;
+            }
+            nodes.add(new int[]{x, y, node.val});
+
+            dfs(node.left, x - 1, y + 1);
+            dfs(node.right, x + 1, y + 1);
+        }
+    }
 }

@@ -37,6 +37,16 @@ public class VerticalOrderTraversalOfABinaryTreeTest {
 
         List<List<Integer>> actual3 = service.verticalTraversal(TreeNode.buildAnyWithArr(new Integer[]{1,2,3,4,6,5,7}));
         assertTrue(CollectionUtils.equals(actual3, expect2));
+
+        VerticalOrderTraversalOfABinaryTree.Sort sort = new VerticalOrderTraversalOfABinaryTree.Sort();
+        actual1 = sort.verticalTraversal(TreeNode.buildAnyWithArr(new Integer[]{3, 9, 20, null, null, 15, 7}));
+        assertTrue(CollectionUtils.equals(actual1, expect1));
+
+        actual2 = service.verticalTraversal(TreeNode.buildAnyWithArr(new Integer[]{1, 2, 3, 4, 5, 6, 7}));
+        assertTrue(CollectionUtils.equals(actual2, expect2));
+
+        actual3 = service.verticalTraversal(TreeNode.buildAnyWithArr(new Integer[]{1,2,3,4,6,5,7}));
+        assertTrue(CollectionUtils.equals(actual3, expect2));
     }
     // @formatter:on
 }
