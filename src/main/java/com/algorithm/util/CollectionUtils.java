@@ -1,7 +1,8 @@
 package com.algorithm.util;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CollectionUtils {
     private CollectionUtils() {
@@ -46,17 +47,6 @@ public class CollectionUtils {
             }
         }
         return true;
-    }
-
-    public static List<List<?>> createTwoDimensionList(List<?> l1, List<?> l2) {
-        List<List<?>> ans = new ArrayList<>();
-        ans.add(l1);
-        ans.add(l2);
-        return ans;
-    }
-
-    public static List<Integer> asList(int... arr) {
-        return Arrays.stream(arr).boxed().collect(Collectors.toList());
     }
 
     /**
