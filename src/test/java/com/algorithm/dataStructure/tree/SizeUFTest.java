@@ -1,11 +1,10 @@
 package com.algorithm.dataStructure.tree;
 
 import com.algorithm.util.NumberUtils;
-import org.junit.Test;
 
 public class SizeUFTest {
 
-    @Test
+//    @Test
     public void union(int n) {
 
         long start = System.currentTimeMillis();

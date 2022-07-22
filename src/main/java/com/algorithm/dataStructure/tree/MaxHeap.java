@@ -194,7 +194,7 @@ public class MaxHeap {
             if (rightChildIdx <= lastChildIdx && arr[rightChildIdx] > arr[parentIdx]) {
                 biggerIdx = rightChildIdx;
             }
-            if (leftChildIdx <= lastChildIdx && arr[leftChildIdx] > arr[parentIdx]) {
+            if (leftChildIdx <= lastChildIdx && arr[leftChildIdx] > arr[biggerIdx]) {
                 biggerIdx = leftChildIdx;
             }
             if (biggerIdx == parentIdx) {

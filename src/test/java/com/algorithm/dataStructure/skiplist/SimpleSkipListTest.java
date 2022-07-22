@@ -63,7 +63,7 @@ public class SimpleSkipListTest {
 
         assertEquals(randomArr.length, noDuplicateSkipList.size);
 
-        noDuplicateSkipList.print();
+//        noDuplicateSkipList.print();
 
     }
 }

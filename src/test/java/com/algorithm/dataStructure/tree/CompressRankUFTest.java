@@ -1,11 +1,9 @@
 package com.algorithm.dataStructure.tree;
 
 import com.algorithm.util.NumberUtils;
-import org.junit.Test;
 
 public class CompressRankUFTest {
 
-    @Test
     public void union(int n) {
 
         long start = System.currentTimeMillis();

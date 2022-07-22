@@ -32,22 +32,22 @@ public class MaxHeapTest {
     @Test
     public void getParentIdx() {
         assertEquals(1, maxHeap.getParentIdx(3));
-        assertEquals(3, maxHeap.getParentIdx(6));
+        assertEquals(2, maxHeap.getParentIdx(6));
         assertEquals(2, maxHeap.getParentIdx(5));
-        assertEquals(2, maxHeap.getParentIdx(4));
+        assertEquals(1, maxHeap.getParentIdx(4));
     }
 
     @Test
     public void getLeftChildIdx() {
-        assertEquals(2, maxHeap.getLeftChildIdx(1));
-        assertEquals(4, maxHeap.getLeftChildIdx(2));
+        assertEquals(3, maxHeap.getLeftChildIdx(1));
+        assertEquals(5, maxHeap.getLeftChildIdx(2));
 
     }
 
     @Test
     public void getRightChildIdx() {
-        assertEquals(3, maxHeap.getRightChildIdx(1));
-        assertEquals(5, maxHeap.getRightChildIdx(2));
+        assertEquals(4, maxHeap.getRightChildIdx(1));
+        assertEquals(6, maxHeap.getRightChildIdx(2));
     }
 
     @Test

@@ -102,12 +102,10 @@ public class PermutationSequence {
 
             usedArr[i] = true;
             path.append(nums[i]);
+            dfs(nums, n, path, usedArr);
             if (k == 0) {
-                dfs(nums, n, path, usedArr);
                 ans = path.toString();
                 return;
-            } else {
-                --k;
             }
             // 回溯：回退之前的状态
             usedArr[i] = false;

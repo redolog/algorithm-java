@@ -1,5 +1,6 @@
 package com.algorithm.probability;
 
+import com.algorithm.constant.Const;
 import com.algorithm.util.NumberUtils;
 import com.algorithm.util.ProbabilityUtils;
 import org.junit.Assert;
@@ -9,8 +10,8 @@ import java.util.Arrays;
 
 public class EqualProbabilityTest {
 
-    int cnt = 10000;
-    int precision = 100;
+    int cnt = Const.DATA_SIZE;
+    int precision = Const.PRECISION;
 
 
     @Test

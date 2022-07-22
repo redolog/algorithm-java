@@ -1,8 +1,13 @@
 package com.algorithm.dataStructure.array;
 
+import com.algorithm.util.CollectionUtils;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TopKFrequentElementsTest {
 
@@ -14,6 +19,6 @@ public class TopKFrequentElementsTest {
         TopKFrequentElements.QuickSort quickSort = new TopKFrequentElements.QuickSort();
         assertArrayEquals(new int[]{1, 2}, quickSort.topKFrequent(new int[]{1, 1, 1, 2, 2, 3}, 2));
         assertArrayEquals(new int[]{1}, quickSort.topKFrequent(new int[]{1}, 1));
-        assertArrayEquals(new int[]{1, 2}, quickSort.topKFrequent(new int[]{1, 2}, 2));
+        assertTrue(CollectionUtils.equals(Arrays.asList(1, 2), Arrays.stream(quickSort.topKFrequent(new int[]{1, 2}, 2)).boxed().collect(Collectors.toList())));
     }
 }

@@ -63,13 +63,10 @@ public class WordSearchII {
                 insert(word);
             }
 
-            System.out.println(root.children.keySet());
-
             // 从每个点开始搜
             for (int row = 0; row < board.length; row++) {
                 for (int col = 0; col < board[row].length; col++) {
                     char currChar = board[row][col];
-                    System.out.println(currChar);
                     if (!root.children.containsKey(currChar)) {
                         continue;
                     }

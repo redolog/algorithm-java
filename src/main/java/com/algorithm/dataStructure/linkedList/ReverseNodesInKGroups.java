@@ -114,6 +114,10 @@ public class ReverseNodesInKGroups {
             if (groupPrev != null) {
                 groupPrev.next = curr;
             }
+            if (curr == null) {
+                break;
+            }
+
             // 反转
             ListNode nextTmp = curr.next;
             curr.next = prev;

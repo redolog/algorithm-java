@@ -1,5 +1,6 @@
 package com.algorithm.util;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class NumberUtils {
@@ -18,10 +19,10 @@ public class NumberUtils {
         if (ArrayUtils.dontNeedEquals(nums)) {
             return true;
         }
-        int first = nums[0];
+        int avg = Arrays.stream(nums).sum() / nums.length;
 
         for (int i = 1; i < nums.length; i++) {
-            if (MathUtils.abs(nums[i] - first) > precision) {
+            if (MathUtils.abs(nums[i] - avg) > precision * 10) {
                 return false;
             }
         }

@@ -1,7 +1,6 @@
 package com.algorithm.hash.consistentHash;
 
 import com.algorithm.util.MurmurHashUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -76,7 +75,6 @@ public class ConsistentHashCoordinator {
         node.put(key, data);
     }
 
-    @NotNull
     private Node getNodeByKey(String key) {
         Long hash = MurmurHashUtils.hash(key);
         SortedMap<Long, Node> tailMap = virtualHash2Node.tailMap(hash);

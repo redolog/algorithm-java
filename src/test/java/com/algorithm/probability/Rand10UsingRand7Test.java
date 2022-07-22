@@ -1,5 +1,6 @@
 package com.algorithm.probability;
 
+import com.algorithm.constant.Const;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -10,7 +11,7 @@ public class Rand10UsingRand7Test {
     public void testRand10UsingRand7() {
         Rand10UsingRand7.Binary binary = new Rand10UsingRand7.Binary();
 
-        int cnt = 1000000;
+        int cnt = Const.DATA_SIZE;
         int[] randArr = new int[16];
         for (int i = 0; i < cnt; i++) {
             int randNum = binary.rand16();

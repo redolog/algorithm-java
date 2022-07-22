@@ -90,7 +90,7 @@ public class TreeNode {
      */
     public static TreeNode buildAnyWithArr(Integer[] arr) {
         if (ArrayUtils.isEmpty(arr)) {
-            return new TreeNode();
+            return null;
         }
 
         // 存原数组数字信息
@@ -100,7 +100,7 @@ public class TreeNode {
 
         Integer rootNum = arrQueue.poll();
         if (rootNum == null) {
-            return new TreeNode();
+            return null;
         }
         TreeNode root = new TreeNode(rootNum);
         nodeQueue.offer(root);

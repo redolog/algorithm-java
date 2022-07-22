@@ -1,7 +1,5 @@
 package com.algorithm.dataStructure.graph.weight;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * 权重边
  *
@@ -71,7 +69,7 @@ public class WeightedEdge<Weight extends Number & Comparable> implements Compara
     }
 
     @Override
-    public int compareTo(@NotNull WeightedEdge other) {
+    public int compareTo(WeightedEdge other) {
         return getWeight().compareTo(other.getWeight());
     }
 }

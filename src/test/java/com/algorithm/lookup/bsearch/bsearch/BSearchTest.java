@@ -1,5 +1,6 @@
 package com.algorithm.lookup.bsearch.bsearch;
 
+import com.algorithm.constant.Const;
 import com.algorithm.util.ArrayUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BSearchTest {
 
-    private static final int BATCH_SIZE = 10000;
+    private static final int BATCH_SIZE = Const.DATA_SIZE;
 
     @Test
     public void bsearchTest() {
@@ -33,16 +34,14 @@ public class BSearchTest {
             int[] arr = ArrayUtils.createArrayByRandomLenAndVal(10 + i, 100 + i);
             Arrays.sort(arr);
 
-            System.out.println(Arrays.toString(arr));
-
             int idxRude = BSearch.findLeftMostBiggerEqualIndexRude(arr, 6);
             int idx = BSearch.findLeftMostBiggerEqualIndex(arr, 6);
 
             int idxOld = BSearchFindFirstBiggerOrEqual.bsearchFindFirstBiggerOrEqual(arr, 6);
-
-            System.out.println("idxRude::" + idxRude);
-            System.out.println("idx::" + idx);
-            System.out.println("idxOld::" + idxOld);
+//
+//            System.out.println("idxRude::" + idxRude);
+//            System.out.println("idx::" + idx);
+//            System.out.println("idxOld::" + idxOld);
             Assert.assertEquals(idxRude, idx);
             Assert.assertEquals(idxRude, idxOld);
         }

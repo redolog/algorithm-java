@@ -9,10 +9,6 @@ import static org.junit.Assert.assertNull;
 public class ReverseNodesInKGroupsTest {
 
     @Test
-    public void reverseKGroup() {
-    }
-
-    @Test
     public void getGroupEndByStartAndGroupSizeTest() {
 
         ListNode listNode = ListNode.build(1, 2, 3, 4);
@@ -23,16 +19,6 @@ public class ReverseNodesInKGroupsTest {
         groupEnd = ReverseNodesInKGroups.getGroupEndByStartAndGroupSize(listNode, 5);
         assertNull(groupEnd);
         assertNotNull(ReverseNodesInKGroups.getGroupEndByStartAndGroupSize(listNode, 4));
-    }
-
-    @Test
-    public void testReverseKGroup() {
-        ListNode start = ListNode.build(1, 2, 3, 4);
-        ListNode end = ReverseNodesInKGroups.getGroupEndByStartAndGroupSize(start, 3);
-        ListNode nextPrev = ReverseNodesInKGroups.reverseGroupNodes(start, null, ListNode.build(4));
-
-
-        Assert.assertEquals(ListNode.build(3, 2, 1, 4), nextPrev);
     }
 
     @Test
