@@ -9,6 +9,7 @@ public class FreqStackTest {
     @Test
     public void push() {
         FreqStack freqStack = new FreqStack();
+
         freqStack.push(5);
         freqStack.push(7);
         freqStack.push(5);

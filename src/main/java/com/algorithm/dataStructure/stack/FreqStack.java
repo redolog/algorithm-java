@@ -1,9 +1,9 @@
 package com.algorithm.dataStructure.stack;
 
 
-import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -49,30 +49,30 @@ public class FreqStack {
     }
 
     void push(int val) {
-        Integer freq = val2Freq.getOrDefault(val, 0);
-        freq++;
+        // val对应频率+1
+        Integer freq = val2Freq.getOrDefault(val, 0) + 1;
+        // 更新val频率
         val2Freq.put(val, freq);
-
-        Deque<Integer> stack = freq2Stack.computeIfAbsent(freq, k -> new ArrayDeque<>());
-        stack.push(val);
+        freq2Stack.putIfAbsent(freq, new LinkedList<>());
+        // val入栈新频率stack
+        freq2Stack.get(freq).offerLast(val);
+        // 当前数据频率最大，更新maxFreq
         maxFreq = Math.max(maxFreq, freq);
     }
 
     int pop() {
-        if (maxFreq == 0) {
-            return -1;
-        }
+        // 根据maxFreq获取栈
         Deque<Integer> stack = freq2Stack.get(maxFreq);
         if (stack.isEmpty()) {
             return -1;
         }
-        Integer val = stack.pop();
+        Integer val = stack.pollLast();
+        // 更新val对应频率，频率-1
         val2Freq.put(val, val2Freq.get(val) - 1);
-
+        // 栈空，表示当前频率下没元素了，最大频率-1
         if (stack.isEmpty()) {
             maxFreq--;
         }
-
         return val;
     }
 }
