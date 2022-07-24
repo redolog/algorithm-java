@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.dataStructure.array.preSum;
 
 import org.junit.Test;
 
