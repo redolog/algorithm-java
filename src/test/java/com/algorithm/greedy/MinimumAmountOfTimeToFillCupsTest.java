@@ -12,5 +12,10 @@ public class MinimumAmountOfTimeToFillCupsTest {
         assertEquals(4, service.fillCups(new int[]{1, 4, 2}));
         assertEquals(7, service.fillCups(new int[]{5, 4, 4}));
         assertEquals(5, service.fillCups(new int[]{5, 0, 0}));
+
+        MinimumAmountOfTimeToFillCups.Simulation simulation = new MinimumAmountOfTimeToFillCups.Simulation();
+        assertEquals(4, simulation.fillCups(new int[]{1, 4, 2}));
+        assertEquals(7, simulation.fillCups(new int[]{5, 4, 4}));
+        assertEquals(5, simulation.fillCups(new int[]{5, 0, 0}));
     }
 }
