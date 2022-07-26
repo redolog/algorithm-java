@@ -61,9 +61,9 @@ public class CapacityToShipPackagesWithinDDays {
      * 86.08%
      * 的用户
      * 内存消耗：
-     * 45 MB
+     * 45.3 MB
      * , 在所有 Java 提交中击败了
-     * 39.40%
+     * 6.08%
      * 的用户
      * 通过测试用例：
      * 85 / 85
@@ -71,25 +71,32 @@ public class CapacityToShipPackagesWithinDDays {
 
     public int shipWithinDays(int[] weights, int days) {
         // 负载边界
-        int low = 0, high = 0;
+        int l = 0, r = 0;
         // 最小载重为商品重量中最大值；最大载重为所有商品重量和
         for (int weight : weights) {
-            low = Math.max(weight, low);
-            high += weight;
+            l = Math.max(weight, l);
+            r += weight;
         }
-
-        while (low < high) {
-            int mid = low + ((high - low) >> 1);
+        while (l <= r) {
+            int mid = l + ((r - l) >> 1);
             int daysNeed = daysByLoad(mid, weights);
-            if (daysNeed <= days) {
-                // 收缩右边界
-                high = mid;
+            if (daysNeed == days) {
+                // mid已到达左侧边界；或者mid再-1，天数就超了，直接返回
+                if (mid == 0 || daysByLoad(mid - 1, weights) > daysNeed) {
+                    return mid;
+                }
+                // r不在解区间，收缩到解区间，同时此时排除了mid的解可能性
+                r = mid - 1;
+            } else if (daysNeed > days) {
+                // daysByLoad 递减，说明此时l到了非解，收缩l到解区间，同时，mid已经证明不在解区间，跳跃到mid+1
+                l = mid + 1;
             } else {
-                // 负载太小了，收缩左边界
-                low = mid + 1;
+                // daysNeed < days
+                // daysByLoad 递减，说明此时r到了非解区间，同时，mid已经证明了不在解区间，可以跳跃到 mid-1
+                r = mid - 1;
             }
         }
-        return low;
+        return l;
     }
 
     /**
