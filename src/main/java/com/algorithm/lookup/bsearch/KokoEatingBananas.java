@@ -44,9 +44,9 @@ public class KokoEatingBananas {
      * 47.51%
      * 的用户
      * 内存消耗：
-     * 42.4 MB
+     * 42.2 MB
      * , 在所有 Java 提交中击败了
-     * 33.37%
+     * 54.85%
      * 的用户
      * 通过测试用例：
      * 122 / 122
@@ -68,13 +68,23 @@ public class KokoEatingBananas {
         }
 
         // 循环 logm 轮
-        while (low < high) {
+        while (low <= high) {
             int mid = low + ((high - low) >> 1);
-            int hoursNeed = hoursBySpeed(mid, piles);
-            if (hoursNeed > h) {
+            long hoursNeed = hoursBySpeed(mid, piles);
+            if (hoursNeed == h) {
+                // 等值区间是否到达边界
+                if (mid == 1 || hoursBySpeed(mid - 1, piles) > h) {
+                    return mid;
+                }
+                // 不是边界，high可以左移
+                high = mid - 1;
+            } else if (hoursNeed > h) {
+                // mid此时不在答案处，low处于非解区间，low可以右移
                 low = mid + 1;
             } else {
-                high = mid;
+                // mid此时不在答案处，high处于非解区间，high可以左移
+                // hoursNeed < h
+                high = mid - 1;
             }
         }
         return low;
@@ -85,8 +95,8 @@ public class KokoEatingBananas {
      * 速度越大，所需时间越少
      * hoursBySpeed 是一个递减函数
      */
-    private int hoursBySpeed(int speed, int[] piles) {
-        int hours = 0;
+    private long hoursBySpeed(int speed, int[] piles) {
+        long hours = 0;
         for (int pile : piles) {
             hours += pile % speed == 0 ? pile / speed : pile / speed + 1;
             // while(pile>0){
