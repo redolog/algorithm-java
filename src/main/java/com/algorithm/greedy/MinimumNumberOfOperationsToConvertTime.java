@@ -92,4 +92,23 @@ public class MinimumNumberOfOperationsToConvertTime {
         }
         return ans;
     }
+
+    static class ConciseSolution {
+        public int convertTime(String current, String correct) {
+            int ans = 0;
+            int currH = Integer.parseInt(current.substring(0, 2));
+            int correctH = Integer.parseInt(correct.substring(0, 2));
+            int currM = Integer.parseInt(current.substring(3));
+            int correctM = Integer.parseInt(correct.substring(3));
+
+            int diff = correctH * 60 + correctM - currH * 60 - currM;
+
+            int[] incrementArr = {60, 15, 5, 1};
+            for (int incr : incrementArr) {
+                ans += diff / incr;
+                diff = diff % incr;
+            }
+            return ans;
+        }
+    }
 }

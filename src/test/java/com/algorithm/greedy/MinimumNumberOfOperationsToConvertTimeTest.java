@@ -13,5 +13,10 @@ public class MinimumNumberOfOperationsToConvertTimeTest {
         assertEquals(1, service.convertTime("11:00", "11:01"));
         assertEquals(7, service.convertTime("09:41", "10:34"));
         assertEquals(5, service.convertTime("13:55", "15:13"));
+        MinimumNumberOfOperationsToConvertTime.ConciseSolution conciseSolution = new MinimumNumberOfOperationsToConvertTime.ConciseSolution();
+        assertEquals(3, conciseSolution.convertTime("02:30", "04:35"));
+        assertEquals(1, conciseSolution.convertTime("11:00", "11:01"));
+        assertEquals(7, conciseSolution.convertTime("09:41", "10:34"));
+        assertEquals(5, conciseSolution.convertTime("13:55", "15:13"));
     }
 }
