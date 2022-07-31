@@ -138,8 +138,8 @@ public class LongestSubstringWithoutRepeatingCharacters {
          * dp[i]表示s[i]结尾的无重复字符的最长子串长度
          * dp[0]==1
          * max=max(dp[0,n-1])
-         * set记录字符是否有出现过
-         * dp[i]= (s[i]出现过 ? s[i-1]==s[i] ? 1 : min(dp[i-1]+1,i-prevIdx) : dp[i - 1] + 1)
+         * map记录字符前序出现的下标位置
+         * dp[i]= (s[i]出现过 ? min( dp[i-1]+1 , i-prevIdx ) : dp[i - 1] + 1)
          */
         public int lengthOfLongestSubstring(String s) {
 
@@ -158,7 +158,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
             for (int i = 1; i < n; i++) {
                 char currC = s.charAt(i);
                 if (c2Idx.containsKey(currC)) {
-                    dp[i] = s.charAt(i - 1) == currC ? 1 : (Math.min(dp[i - 1] + 1, i - c2Idx.get(currC)));
+                    dp[i] = Math.min(dp[i - 1] + 1, i - c2Idx.get(currC));
                 } else {
                     dp[i] = dp[i - 1] + 1;
                 }
