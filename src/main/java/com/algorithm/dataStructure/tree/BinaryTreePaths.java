@@ -1,7 +1,9 @@
 package com.algorithm.dataStructure.tree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * 257. 二叉树的所有路径
@@ -31,6 +33,52 @@ import java.util.List;
  * @author dragonsong  @date 2022/8/1
  */
 public class BinaryTreePaths {
+
+    static class BFS {
+        /*
+         * 执行用时：
+         * 9 ms
+         * , 在所有 Java 提交中击败了
+         * 15.00%
+         * 的用户
+         * 内存消耗：
+         * 41.7 MB
+         * , 在所有 Java 提交中击败了
+         * 39.38%
+         * 的用户
+         * 通过测试用例：
+         * 208 / 208
+         */
+
+        public List<String> binaryTreePaths(TreeNode root) {
+            List<String> ans = new ArrayList<>();
+
+            Queue<TreeNode> queue = new ArrayDeque<>();
+            Queue<String> pathQ = new ArrayDeque<>();
+            if (root != null) {
+                queue.offer(root);
+                pathQ.offer("" + root.val);
+            }
+            while (!queue.isEmpty()) {
+                TreeNode node = queue.poll();
+                String path = pathQ.poll();
+                if (node.left == null && node.right == null) {
+                    ans.add(path);
+                }
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                    pathQ.offer(path + "->" + node.left.val);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                    pathQ.offer(path + "->" + node.right.val);
+                }
+            }
+
+            return ans;
+        }
+    }
 
     static class DFS {
         /*
