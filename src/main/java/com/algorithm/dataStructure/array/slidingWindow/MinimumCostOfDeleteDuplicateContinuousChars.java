@@ -7,8 +7,25 @@ package com.algorithm.dataStructure.array.slidingWindow;
  * 要求删除字符串中紧邻的重复字符，并且求最小成本
  */
 public class MinimumCostOfDeleteDuplicateContinuousChars {
-
+    // 优化后的写法
     public int miniCost(String str, int[] cost) {
+        int n = str.length();
+        int ans = 0;
+        for (int i = 0; i + 1 < n; i++) {
+            int sum = cost[i];
+            int maxCost = cost[i];
+            while (i + 1 < n && str.charAt(i) == str.charAt(i + 1)) {
+                maxCost = Math.max(maxCost, cost[i + 1]);
+                sum += cost[i + 1];
+                i++;
+            }
+            ans += sum == maxCost ? 0 : sum - maxCost;
+        }
+        return ans;
+    }
+
+    // 面试时的写法
+    public int miniCost2(String str, int[] cost) {
         int ans = 0;
         int n = str.length();
 
@@ -19,7 +36,6 @@ public class MinimumCostOfDeleteDuplicateContinuousChars {
                 l++;
                 r++;
             }
-
             int maxCost = cost[l];
             while (r < n && str.charAt(r) == str.charAt(r - 1)) {
                 maxCost = Math.max(maxCost, cost[r]);
