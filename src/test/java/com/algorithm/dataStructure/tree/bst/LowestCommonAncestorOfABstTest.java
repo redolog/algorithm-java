@@ -1,5 +1,6 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.bst;
 
+import com.algorithm.dataStructure.tree.TreeNode;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

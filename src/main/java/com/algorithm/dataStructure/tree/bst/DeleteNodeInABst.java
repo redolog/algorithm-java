@@ -1,4 +1,6 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.bst;
+
+import com.algorithm.dataStructure.tree.TreeNode;
 
 /**
  * 450. 删除二叉搜索树中的节点

@@ -1,4 +1,6 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.bst;
+
+import com.algorithm.dataStructure.tree.TreeNode;
 
 /**
  * 二叉搜索树

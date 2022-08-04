@@ -1,4 +1,6 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.bst;
+
+import com.algorithm.dataStructure.tree.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;

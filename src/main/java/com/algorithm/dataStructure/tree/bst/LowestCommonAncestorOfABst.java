@@ -1,4 +1,6 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.bst;
+
+import com.algorithm.dataStructure.tree.TreeNode;
 
 /**
  * 235. 二叉搜索树的最近公共祖先
