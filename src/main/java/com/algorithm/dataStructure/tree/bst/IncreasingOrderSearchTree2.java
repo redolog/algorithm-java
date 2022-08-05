@@ -1,4 +1,6 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.bst;
+
+import com.algorithm.dataStructure.tree.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ import java.util.List;
  *
  * @author dragonsong  @date 2022/7/12
  */
-public class IncreasingOrderSearchTree {
+public class IncreasingOrderSearchTree2 {
 
     static class ListSolution {
         List<TreeNode> increasingList;
