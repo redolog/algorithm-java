@@ -48,7 +48,6 @@ public class MinimumCostOfDeleteDuplicateContinuousChars {
             }
             l = r;
         }
-
         return ans;
     }
 }
