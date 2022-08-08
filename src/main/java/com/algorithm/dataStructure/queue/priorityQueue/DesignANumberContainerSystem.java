@@ -88,7 +88,7 @@ public class DesignANumberContainerSystem {
         }
 
         public int find(int num) {
-            // O(logn)
+            // O(1)
             SortedSet<Integer> set = num2SortedSet.get(num);
             if (set == null || set.isEmpty()) {
                 return -1;
@@ -129,7 +129,8 @@ public class DesignANumberContainerSystem {
             if (queue == null || queue.isEmpty()) {
                 return -1;
             }
-            // O(logn)
+            // O(n*logn)
+            // 每个idx最多插入、删除一次，因为均摊复杂度为O(logn)
             // 堆顶idx对应num应该是当前请求的，否则说明是旧数据
             while (!queue.isEmpty() && idx2Num.get(queue.peek()) != num) {
                 queue.poll();
