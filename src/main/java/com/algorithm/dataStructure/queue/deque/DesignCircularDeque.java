@@ -50,6 +50,101 @@ package com.algorithm.dataStructure.queue.deque;
  */
 public class DesignCircularDeque {
 
+    static class LinkedCircularDeque {
+
+        // dummy节点，方便首尾操作
+        Node head, tail;
+
+        int capacity;
+        int size;
+
+        public LinkedCircularDeque(int k) {
+            this.capacity = k;
+            this.size = 0;
+            head = new Node(Integer.MAX_VALUE);
+            tail = new Node(Integer.MAX_VALUE);
+            head.next = head.prev = tail;
+            tail.prev = tail.next = head;
+        }
+
+        public boolean insertFront(int value) {
+            if (isFull()) {
+                return false;
+            }
+            Node newNode = new Node(value);
+            head.next.prev = newNode;
+            newNode.next = head.next;
+            newNode.prev = head;
+            head.next = newNode;
+            ++size;
+            return true;
+        }
+
+        public boolean insertLast(int value) {
+            if (isFull()) {
+                return false;
+            }
+            Node newNode = new Node(value);
+            tail.prev.next = newNode;
+            newNode.prev = tail.prev;
+            newNode.next = tail;
+            tail.prev = newNode;
+            ++size;
+            return true;
+        }
+
+        public boolean deleteFront() {
+            if (isEmpty()) {
+                return false;
+            }
+            head.next.next.prev = head;
+            head.next = head.next.next;
+            --size;
+            return true;
+        }
+
+        public boolean deleteLast() {
+            if (isEmpty()) {
+                return false;
+            }
+            tail.prev.prev.next = tail;
+            tail.prev = tail.prev.prev;
+            --size;
+            return true;
+        }
+
+        public int getFront() {
+            if (isEmpty()) {
+                return -1;
+            }
+            return head.next.val;
+        }
+
+        public int getRear() {
+            if (isEmpty()) {
+                return -1;
+            }
+            return tail.prev.val;
+        }
+
+        static class Node {
+            Node prev, next;
+            int val;
+
+            public Node(int val) {
+                this.val = val;
+            }
+        }
+
+        public boolean isEmpty() {
+            return size == 0;
+        }
+
+        public boolean isFull() {
+            return size == capacity;
+        }
+    }
+
     static class ArrayCircularDeque {
 
         int[] arr;
@@ -131,6 +226,76 @@ public class DesignCircularDeque {
 
         public boolean isFull() {
             return size == capacity;
+        }
+    }
+
+    static class ArrayCircularDeque2 {
+
+        int[] arr;
+        int head;
+        int tail;
+        int capacity;
+
+        public ArrayCircularDeque2(int k) {
+            capacity = k + 1;
+            arr = new int[capacity];
+            head = tail = 0;
+        }
+
+        public boolean insertFront(int value) {
+            if (isFull()) {
+                return false;
+            }
+            head = (head - 1 + capacity) % capacity;
+            arr[head] = value;
+            return true;
+        }
+
+        public boolean insertLast(int value) {
+            if (isFull()) {
+                return false;
+            }
+            arr[tail] = value;
+            tail = (tail + 1) % capacity;
+            return true;
+        }
+
+        public boolean deleteFront() {
+            if (isEmpty()) {
+                return false;
+            }
+            head = (head + 1) % capacity;
+            return true;
+        }
+
+        public boolean deleteLast() {
+            if (isEmpty()) {
+                return false;
+            }
+            tail = (tail - 1 + capacity) % capacity;
+            return true;
+        }
+
+        public int getFront() {
+            if (isEmpty()) {
+                return -1;
+            }
+            return arr[head];
+        }
+
+        public int getRear() {
+            if (isEmpty()) {
+                return -1;
+            }
+            return arr[(tail - 1 + capacity) % capacity];
+        }
+
+        public boolean isEmpty() {
+            return head == tail;
+        }
+
+        public boolean isFull() {
+            return (tail + 1) % capacity == head;
         }
     }
 }
