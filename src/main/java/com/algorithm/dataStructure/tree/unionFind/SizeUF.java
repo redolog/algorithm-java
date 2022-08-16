@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.unionFind;
 
 /**
  * QuickUF 中我们每次union时很可能会将一棵较高的树，并到一棵较低的树上，这样其实总的树高是变高了，复杂度因此而攀升。

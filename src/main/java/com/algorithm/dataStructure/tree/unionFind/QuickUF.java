@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.unionFind;
 
 /**
  * QuickFindUF 中union的复杂度为 O(n)，QuickUF 来优化这个union

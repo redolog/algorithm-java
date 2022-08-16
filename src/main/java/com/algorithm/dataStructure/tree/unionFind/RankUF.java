@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.unionFind;
 
 /**
  * SizeUF 中根据树元素个数做了union时的优化，防止将更多元素的树合并到更少元素的树上，但是带来一个问题：

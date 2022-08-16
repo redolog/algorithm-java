@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.unionFind;
 
 import com.algorithm.constant.Const;
 import org.junit.Test;

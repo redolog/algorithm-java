@@ -1,26 +1,25 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.unionFind;
 
 import com.algorithm.util.NumberUtils;
 
-public class QuickFindUFTest {
+public class SizeUFTest {
 
 //    @Test
     public void union(int n) {
 
         long start = System.currentTimeMillis();
-        QuickFindUF quickFindUF = new QuickFindUF(n);
+        SizeUF sizeUF = new SizeUF(n);
         for (int i = 0; i < n; i++) {
             int pIdx = NumberUtils.randomIndex(n);
             int qIdx = NumberUtils.randomIndex(n);
-            quickFindUF.union(pIdx, qIdx);
+            sizeUF.union(pIdx, qIdx);
         }
         for (int i = 0; i < n; i++) {
             int pIdx = NumberUtils.randomIndex(n);
             int qIdx = NumberUtils.randomIndex(n);
-            quickFindUF.isConnected(pIdx, qIdx);
+            sizeUF.isConnected(pIdx, qIdx);
         }
         long end = System.currentTimeMillis();
-        System.out.println("QuickFindUFTest 运行 " + n + "次，耗时：" + (end - start) + "ms");
-
+        System.out.println("SizeUFTest 运行 " + n + "次，耗时：" + (end - start) + "ms");
     }
 }

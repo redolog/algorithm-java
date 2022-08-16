@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.tree;
+package com.algorithm.dataStructure.tree.unionFind;
 
 /**
  * RankUF 中根据树高来精确判断union时的策略。但是在极端情况下，树仍然会很高，我们可以使用路径压缩的方式将树高压短。
