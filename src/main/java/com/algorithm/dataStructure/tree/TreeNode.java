@@ -81,6 +81,9 @@ public class TreeNode {
         return 2 * parentIdx + 2;
     }
 
+    public static TreeNode buildAny(Integer... nums) {
+        return buildAnyWithArr(nums);
+    }
 
     /**
      * 1,2,-1,3,-1,4,-1,5
