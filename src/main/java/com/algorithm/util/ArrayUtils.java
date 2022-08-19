@@ -2,6 +2,8 @@ package com.algorithm.util;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class ArrayUtils {
@@ -138,6 +140,7 @@ public class ArrayUtils {
             if (arr[i] > arr[i + 1]) return false;
         return true;
     }
+
     // 测试sortClassName所对应的排序算法排序arr数组所得到结果的正确性和算法运行时间
     // 将算法的运行时间打印在控制台上
     public static void testSort(String sortClassName, String sortMethodName, int[] arr) {
@@ -163,8 +166,41 @@ public class ArrayUtils {
         }
     }
 
-    public static boolean contains(Object[] arr,Object element){
+    public static boolean contains(Object[] arr, Object element) {
         return Arrays.asList(arr).contains(element);
     }
 
+    public static boolean containEquals(int[][] aPoints, int[][] bPoints) {
+        if (aPoints == null) {
+            return bPoints == null;
+        }
+        if (aPoints.length != bPoints.length) {
+            return false;
+        }
+        Map<Integer, Integer> aHashKey2Cnt = distanceArray2CardinalityMap(aPoints);
+        Map<Integer, Integer> bHashKey2Cnt = distanceArray2CardinalityMap(bPoints);
+        if (aHashKey2Cnt.size() != bHashKey2Cnt.size()) {
+            return false;
+        }
+        for (Map.Entry<Integer, Integer> entry : aHashKey2Cnt.entrySet()) {
+            Integer key = entry.getKey();
+            Integer cnt = entry.getValue();
+            if (!bHashKey2Cnt.containsKey(key) || !bHashKey2Cnt.get(key).equals(cnt)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 求距原点距离时，可将同距离点视为一个key，统计其基数
+     */
+    private static Map<Integer, Integer> distanceArray2CardinalityMap(int[][] points) {
+        final Map<Integer, Integer> hashKey2Cnt = new HashMap<>();
+        for (int[] point : points) {
+            hashKey2Cnt.merge(Arrays.hashCode(point), 1, Integer::sum);
+        }
+        // Arrays.stream(aPoints).collect(Collectors.toMap(Arrays::hashCode, (k) -> 1, Integer::sum))
+        return hashKey2Cnt;
+    }
 }
