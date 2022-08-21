@@ -17,56 +17,41 @@ package com.algorithm.string;
 public class ShiftingLettersII {
 
     static class DiffArr {
-        char[] alphaTable = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
         public String shiftingLetters(String s, int[][] shifts) {
-            char[] arr = s.toCharArray();
-            int n = arr.length;
+            char[] charArr = s.toCharArray();
+            int n = charArr.length;
 
-            // 数组，每一位存储当前字符与前序字符的距离
-            int[] diffArr = new int[n];
-            char prev = 'a';
-            // O(n)
-            for (int i = 0; i < n; i++) {
-                diffArr[i] = arr[i] - prev;
-                prev = arr[i];
-            }
-
+            // 差分数组：每一位存储当前位置的移动量
+            int[] diffArr = new int[n + 1];
             // O(n)
             for (int[] shift : shifts) {
                 int start = shift[0];
                 int end = shift[1];
-                int direction = shift[2];
-                if (direction == 0) {
+                int move = shift[2];
+                if (move == 0) {
                     // 前移
-                    direction = -1;
+                    move = -1;
                 }
 
-                diffArr[start] += direction;
-                if (end + 1 < n) {
-                    diffArr[end + 1] -= direction;
-                }
+                diffArr[start] += move;
+                diffArr[end + 1] -= move;
+            }
+            int[] moveArr = new int[n];
+            moveArr[0] = diffArr[0];
+            for (int i = 1; i < n; i++) {
+                moveArr[i] = moveArr[i - 1] + diffArr[i];
             }
 
-            prev = 'a';
             for (int i = 0; i < n; i++) {
-                arr[i] = distance2Char(diffArr[i], prev);
-                prev = arr[i];
+                // 原距离 + 移动距离
+                int distance = (charArr[i] - 'a' + moveArr[i]) % 26;
+                if (distance < 0) {
+                    distance += 26;
+                }
+                charArr[i] = (char) (distance + 'a');
             }
-            return String.valueOf(arr);
-        }
-
-        public char distance2Char(int distance, char prev) {
-            if (distance == 0) {
-                return prev;
-            }
-            distance += prev - 'a';
-            if (distance < 0) {
-                distance = distance % 26 + 26;
-            } else {
-                distance = distance % 26;
-            }
-            return alphaTable[distance];
+            return String.valueOf(charArr);
         }
     }
 
