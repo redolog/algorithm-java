@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.lookup;
 
 /**
  * 35. 搜索插入位置

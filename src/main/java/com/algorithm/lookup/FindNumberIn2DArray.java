@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.lookup;
 
 /**
  * 240. 搜索二维矩阵 II

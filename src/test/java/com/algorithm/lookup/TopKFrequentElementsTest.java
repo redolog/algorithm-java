@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.lookup;
 
 import com.algorithm.util.CollectionUtils;
 import org.junit.Test;

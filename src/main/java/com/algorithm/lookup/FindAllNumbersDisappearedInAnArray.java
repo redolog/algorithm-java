@@ -47,7 +47,8 @@ public class FindAllNumbersDisappearedInAnArray {
             int n = nums.length;
             for (int i = 0; i < n; i++) {
                 // 当前位置值与下标不匹配，同时 nums[i]-1 下标处于当前值不等
-                while (nums[i] != i + 1 && nums[nums[i] - 1] != nums[i]) {
+                // nums[i] != i + 1 &&
+                while (nums[nums[i] - 1] != nums[i]) {
                     swap(nums, i, nums[i] - 1);
                 }
             }

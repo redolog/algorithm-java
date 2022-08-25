@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.lookup;
 
 import org.junit.Assert;
 import org.junit.Test;
