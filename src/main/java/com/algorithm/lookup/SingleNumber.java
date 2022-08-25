@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array;
+package com.algorithm.lookup;
 
 
 import java.util.Arrays;
@@ -34,7 +34,7 @@ public class SingleNumber {
      * 任何数和其自身做异或运算，结果是 00，即 a \oplus a=0a⊕a=0。
      * 异或运算满足交换律和结合律，即 a \oplus b \oplus a=b \oplus a \oplus a=b \oplus (a \oplus a)=b \oplus0=ba⊕b⊕a=b⊕a⊕a=b⊕(a⊕a)=b⊕0=b。
      */
-    public static int singleNumberXor(int[] nums) {
+    public int singleNumberXor(int[] nums) {
 //        int single = 0;
 //        for (int num : nums) {
 //            single ^= num;
@@ -45,7 +45,7 @@ public class SingleNumber {
         return Arrays.stream(nums).reduce((a, b) -> a ^ b).orElse(-1);
     }
 
-    public static int singleNumberWithSet(int[] nums) {
+    public int singleNumberWithSet(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num : nums) {
             if (set.contains(num)) {
@@ -57,7 +57,7 @@ public class SingleNumber {
         return set.iterator().next();
     }
 
-    public static int singleNumberWithSetSum(int[] nums) {
+    public int singleNumberWithSetSum(int[] nums) {
         Set<Integer> set = new HashSet<>();
         // 原始数组和
         int originalSum = 0;
@@ -66,10 +66,8 @@ public class SingleNumber {
             originalSum += num;
         }
         // 元素不重复的和
-        Integer setSum = set.stream()
-                .reduce(Integer::sum)
-                .orElse(0);
-        return originalSum - setSum * 2;
+        Integer setSum = set.stream().reduce(Integer::sum).orElse(0);
+        return setSum * 2 - originalSum;
     }
 
 }
