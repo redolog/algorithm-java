@@ -3,7 +3,9 @@ package com.algorithm.util;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ArrayUtils {
@@ -202,5 +204,11 @@ public class ArrayUtils {
         }
         // Arrays.stream(aPoints).collect(Collectors.toMap(Arrays::hashCode, (k) -> 1, Integer::sum))
         return hashKey2Cnt;
+    }
+
+    public static List<Integer> intArr2List(int[] arr) {
+        return Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.toList());
     }
 }
