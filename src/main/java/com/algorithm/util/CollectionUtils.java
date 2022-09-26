@@ -29,6 +29,22 @@ public class CollectionUtils {
         return count;
     }
 
+    public static Map<Object, Integer> getCardinalityMap(final Object[] arr) {
+        final Map<Object, Integer> count = new HashMap<>();
+        for (Object obj : arr) {
+            count.merge(obj, 1, Integer::sum);
+        }
+        return count;
+    }
+
+    public static Map<Integer, Integer> getCardinalityMap(final int[] arr) {
+        final Map<Integer, Integer> count = new HashMap<>();
+        for (int obj : arr) {
+            count.merge(obj, 1, Integer::sum);
+        }
+        return count;
+    }
+
     public static boolean isEmpty(Collection<?> coll) {
         return coll == null || coll.isEmpty();
     }

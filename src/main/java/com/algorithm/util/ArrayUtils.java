@@ -194,6 +194,25 @@ public class ArrayUtils {
         return true;
     }
 
+    public static boolean containEquals(int[] a, int[] b) {
+        if (a == null) {
+            return b == null;
+        }
+        if (a.length != b.length) {
+            return false;
+        }
+        Map<Integer, Integer> cardinalityA = CollectionUtils.getCardinalityMap(a);
+        Map<Integer, Integer> cardinalityB = CollectionUtils.getCardinalityMap(b);
+        for (Map.Entry<Integer, Integer> entry : cardinalityA.entrySet()) {
+            Integer intElement = entry.getKey();
+            Integer freq = entry.getValue();
+            if (!freq.equals(cardinalityB.get(intElement))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * 求距原点距离时，可将同距离点视为一个key，统计其基数
      */
