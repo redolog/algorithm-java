@@ -31,6 +31,37 @@ public class MissingTwoLcci {
                     y = diffSum - x;
             return new int[]{x, y};
         }
+
+        public int[] missingTwo2(int[] nums) {
+            int n = nums.length,
+                    // 数组补全后的和，由等比数列求和得出
+                    allSum = (1 + n + 2) * (n + 2) / 2;
+            // 当前数组nums的数组和
+            int currSum = 0;
+            for (int num : nums) {
+                currSum += num;
+            }
+            // 补全后完整数组和 - 当前数组和 == 所求两个元素的和
+            int diffSum = allSum - currSum,
+                    // 取 diffSum 中间值
+                    diffSumHalf = diffSum / 2;
+
+            // 当前nums小于 diffSumHalf 的和
+            int currFirstHalfSum = 0;
+            for (int num : nums) {
+                if (num <= diffSumHalf) {
+                    currFirstHalfSum += num;
+                }
+            }
+            // x = 头一半所有数和 - 当前数组中头一半的和
+            int x = -currFirstHalfSum;
+            for (int i = 1; i < diffSumHalf + 1; i++) {
+                x += i;
+            }
+            // y = 补全数列所有和-已有数列和-x
+            int y = diffSum - x;
+            return new int[]{x, y};
+        }
     }
 
 

@@ -15,5 +15,7 @@ public class MissingTwoLcciTest {
         MissingTwoLcci.GeometricProgression geometricProgression = new MissingTwoLcci.GeometricProgression();
         assertTrue(ArrayUtils.containEquals(geometricProgression.missingTwo(new int[]{1}), new int[]{2, 3}));
         assertTrue(ArrayUtils.containEquals(geometricProgression.missingTwo(new int[]{2, 3}), new int[]{1, 4}));
+        assertTrue(ArrayUtils.containEquals(geometricProgression.missingTwo2(new int[]{1}), new int[]{2, 3}));
+        assertTrue(ArrayUtils.containEquals(geometricProgression.missingTwo2(new int[]{2, 3}), new int[]{1, 4}));
     }
 }
