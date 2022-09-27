@@ -9,8 +9,11 @@ public class CheckPermutationLcciTest {
 
     @Test
     public void checkPermutation() {
-        CheckPermutationLcci service = new CheckPermutationLcci();
-        assertTrue(service.checkPermutation("abc", "bca"));
-        assertFalse(service.checkPermutation("abc", "bad"));
+        CheckPermutationLcci.MapSolution mapSolution = new CheckPermutationLcci.MapSolution();
+        assertTrue(mapSolution.checkPermutation("abc", "bca"));
+        assertFalse(mapSolution.checkPermutation("abc", "bad"));
+        CheckPermutationLcci.SortSolution sortSolution = new CheckPermutationLcci.SortSolution();
+        assertTrue(sortSolution.checkPermutation("abc", "bca"));
+        assertFalse(sortSolution.checkPermutation("abc", "bad"));
     }
 }
