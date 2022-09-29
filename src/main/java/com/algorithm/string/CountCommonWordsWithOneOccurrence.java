@@ -1,7 +1,8 @@
 package com.algorithm.string;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * https://leetcode.cn/problems/count-common-words-with-one-occurrence/
@@ -11,28 +12,16 @@ import java.util.Map;
 public class CountCommonWordsWithOneOccurrence {
 
     public int countWords(String[] words1, String[] words2) {
-        Map<String, Integer> word2Cnt1 = new HashMap<>();
-        for (String word : words1) {
-            word2Cnt1.put(word, word2Cnt1.getOrDefault(word, 0) + 1);
-        }
-        Map<String, Integer> word2Cnt2 = new HashMap<>();
-        for (String word : words2) {
-            word2Cnt2.put(word, word2Cnt2.getOrDefault(word, 0) + 1);
-        }
-        int ans = 0;
-        for (Map.Entry<String, Integer> entry : word2Cnt1.entrySet()) {
-            String word = entry.getKey();
-            Integer cnt = entry.getValue();
-            if (cnt == 1 && word2Cnt2.containsKey(word) && word2Cnt2.get(word) == 1) {
-                ans++;
-            }
-        }
-        return ans;
-    }
-
-    private void calcCnt(String[] words, Map<String, Integer> word2Cnt) {
-        for (String word : words) {
-            word2Cnt.put(word, word2Cnt.getOrDefault(word, 0) + 1);
-        }
+        Map<String, Integer> word2Cnt1 = Arrays.stream(words1)
+                // 元素为key，value为1，冲突时int累加
+                .collect(Collectors.toMap(word -> word, k -> 1, Integer::sum));
+        Map<String, Integer> word2Cnt2 = Arrays.stream(words2)
+                // 同上
+                .collect(Collectors.toMap(word -> word, k -> 1, Integer::sum));
+        return (int) word2Cnt1.entrySet().stream()
+                // words1 中cnt为1，并且words2中存在的word，cnt为1
+                .filter(entry -> entry.getValue() == 1 && word2Cnt2.containsKey(entry.getKey()) && word2Cnt2.get(entry.getKey()) == 1)
+                // 计数
+                .count();
     }
 }
