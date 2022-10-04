@@ -34,4 +34,14 @@ public class CheckIfBinaryStringHasAtMostOneSegmentOfOnes {
     public boolean checkOnesSegment2(String s) {
         return !s.contains("01");
     }
+
+    /**
+     * 最左边的1到最右边的1之间没有0
+     * from benhao总
+     *
+     * @link {https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones/solution/pythonjavatypescriptgo-mo-ni-by-himymben-5tf4/}
+     */
+    public boolean checkOnesSegment3(String s) {
+        return !s.substring(s.indexOf('1', s.lastIndexOf('1'))).contains("0");
+    }
 }

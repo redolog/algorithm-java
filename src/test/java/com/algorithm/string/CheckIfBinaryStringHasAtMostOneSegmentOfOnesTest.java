@@ -14,5 +14,7 @@ public class CheckIfBinaryStringHasAtMostOneSegmentOfOnesTest {
         assertTrue(service.checkOnesSegment("110"));
         assertFalse(service.checkOnesSegment2("1001"));
         assertTrue(service.checkOnesSegment2("110"));
+        assertFalse(service.checkOnesSegment3("1001"));
+        assertTrue(service.checkOnesSegment3("110"));
     }
 }
