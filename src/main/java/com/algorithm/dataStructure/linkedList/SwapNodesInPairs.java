@@ -28,6 +28,20 @@ public class SwapNodesInPairs {
     }
 
     static class Traversal {
+        public ListNode swapPairs2(ListNode head) {
+            ListNode dummy = new ListNode(-1), prev = dummy;
+            dummy.next = head;
+            // 每一轮交换 next & next.next
+            while (prev.next != null && prev.next.next != null) {
+                ListNode first = prev.next, second = prev.next.next, third = second.next;
+                second.next = first;
+                prev.next = second;
+                first.next = third;
+                prev = first;
+            }
+            return dummy.next;
+        }
+
         /**
          * 时间复杂度：迭代遍历整个链表，O(n)
          * 空间复杂度：只有常数个指针开销，O(1)

@@ -9,6 +9,9 @@ public class SwapNodesInPairsTest {
     @Test
     public void swapPairs() {
         SwapNodesInPairs.Traversal traversal = new SwapNodesInPairs.Traversal();
+        assertEquals(ListNode.build(2, 1, 4, 3), traversal.swapPairs2(ListNode.build(1, 2, 3, 4)));
+        assertEquals(ListNode.build(), traversal.swapPairs2(ListNode.build()));
+        assertEquals(ListNode.build(1), traversal.swapPairs2(ListNode.build(1)));
         assertEquals(ListNode.build(2, 1, 4, 3), traversal.swapPairs(ListNode.build(1, 2, 3, 4)));
         assertEquals(ListNode.build(), traversal.swapPairs(ListNode.build()));
         assertEquals(ListNode.build(1), traversal.swapPairs(ListNode.build(1)));
