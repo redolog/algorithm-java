@@ -1,8 +1,6 @@
 package com.algorithm.util;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class CollectionUtils {
     private CollectionUtils() {
@@ -140,6 +138,17 @@ public class CollectionUtils {
             }
             return 0;
         }
+    }
+
+    public static List<List<String>> matrixArr2List(String[][] arr) {
+        if (ArrayUtils.isEmpty(arr)) {
+            return new ArrayList<>();
+        }
+        List<List<String>> list = new ArrayList<>(arr.length);
+        for (String[] subArr : arr) {
+            list.add(new ArrayList<>(Arrays.asList(subArr)));
+        }
+        return list;
     }
 
 }
