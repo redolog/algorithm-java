@@ -1,41 +1,30 @@
 package com.algorithm.string;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * https://leetcode.cn/problems/determine-if-string-halves-are-alike/
  *
- * @author songhuilong  @date 2022/9/14
+ * @author songhuilong  @date 2022/11/11
  */
 public class DetermineIfStringHalvesAreAlike {
 
-    // 'a'，'e'，'i'，'o'，'u'，'A'，'E'，'I'，'O'，'U'
-    Set<Character> set = new HashSet<Character>() {{
-        add('a');
-        add('e');
-        add('i');
-        add('o');
-        add('u');
-        add('A');
-        add('E');
-        add('I');
-        add('O');
-        add('U');
-    }};
-
     public boolean halvesAreAlike(String s) {
+        String vowelStr = "aeiouAEIOU";
+        // 使用long64位存储元音字母
+        long int64 = 0L;
+        for (int i = 0; i < vowelStr.length(); i++) {
+            int64 |= (1L << vowelStr.charAt(i) - 'A');
+        }
         int n = s.length();
-        return cnt(s.substring(0, n / 2)) == cnt(s.substring(n / 2));
+        return cntStrRange(s, 0, n / 2 - 1, int64) == cntStrRange(s, n / 2, n - 1, int64);
     }
 
-    private int cnt(String str) {
-        int ans = 0;
-        for (char c : str.toCharArray()) {
-            if (set.contains(c)) {
-                ans++;
+    private int cntStrRange(String str, int l, int r, long vowelBit) {
+        int vowelCnt = 0;
+        for (int i = l; i <= r; i++) {
+            if ((vowelBit & (1L << str.charAt(i) - 'A')) != 0) {
+                vowelCnt++;
             }
         }
-        return ans;
+        return vowelCnt;
     }
 }
