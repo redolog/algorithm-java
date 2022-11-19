@@ -150,5 +150,15 @@ public class CollectionUtils {
         }
         return list;
     }
+    public static List<List<Integer>> matrixArr2List(Integer[][] arr) {
+        if (ArrayUtils.isEmpty(arr)) {
+            return new ArrayList<>();
+        }
+        List<List<Integer>> list = new ArrayList<>(arr.length);
+        for (Integer[] subInt : arr) {
+            list.add(new ArrayList<>(Arrays.asList(subInt)));
+        }
+        return list;
+    }
 
 }
