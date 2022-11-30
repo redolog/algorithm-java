@@ -1,5 +1,7 @@
 package com.algorithm.decimal;
 
+import java.util.stream.IntStream;
+
 /**
  * https://leetcode.cn/problems/minimum-changes-to-make-alternating-binary-string/
  *
@@ -20,5 +22,14 @@ public class MinimumChangesToMakeAlternatingBinaryString {
 //            }
         }
         return Math.min(cnt, n - cnt);
+    }
+
+    static class StreamSolution {
+        public int minOperations(String s) {
+            int n = s.length(), cnt = (int) IntStream.range(0, n)
+                    .filter(i -> i % 2 != s.charAt(i) - '0')
+                    .count();
+            return Math.min(cnt, n - cnt);
+        }
     }
 }
