@@ -3,7 +3,7 @@ package com.algorithm.util;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class MathUtilsTest {
 
@@ -37,4 +37,9 @@ public class MathUtilsTest {
         }
     }
 
+    @Test
+    public void isPrime() {
+        assertTrue(MathUtils.isPrime(13));
+        assertFalse(MathUtils.isPrime(12));
+    }
 }
