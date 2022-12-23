@@ -1,5 +1,7 @@
 package com.algorithm.string;
 
+import java.util.stream.IntStream;
+
 /**
  * https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/
  *
@@ -17,5 +19,12 @@ public class FindValueOfVariableAfterPerformingOperations {
             }
         }
         return ans;
+    }
+
+    static class StreamSolution {
+        public int finalValueAfterOperations(String[] operations) {
+            int add = (int) IntStream.range(0, operations.length).filter(i -> operations[i].charAt(1) == '+').count();
+            return add - (operations.length - add);
+        }
     }
 }
