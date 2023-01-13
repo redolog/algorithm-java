@@ -8,9 +8,13 @@ public class RearrangeCharactersToMakeTargetStringTest {
 
     @Test
     public void rearrangeCharacters() {
-        RearrangeCharactersToMakeTargetString service = new RearrangeCharactersToMakeTargetString();
-        assertEquals(2, service.rearrangeCharacters("ilovecodingonleetcode", "code"));
-        assertEquals(1, service.rearrangeCharacters("abcba", "abc"));
-        assertEquals(1, service.rearrangeCharacters("abbaccaddaeea", "aaaaa"));
+        RearrangeCharactersToMakeTargetString.ArrCountSolution arrCountSolution = new RearrangeCharactersToMakeTargetString.ArrCountSolution();
+        assertEquals(2, arrCountSolution.rearrangeCharacters("ilovecodingonleetcode", "code"));
+        assertEquals(1, arrCountSolution.rearrangeCharacters("abcba", "abc"));
+        assertEquals(1, arrCountSolution.rearrangeCharacters("abbaccaddaeea", "aaaaa"));
+        RearrangeCharactersToMakeTargetString.StreamSolution streamSolution = new RearrangeCharactersToMakeTargetString.StreamSolution();
+        assertEquals(2, streamSolution.rearrangeCharacters("ilovecodingonleetcode", "code"));
+        assertEquals(1, streamSolution.rearrangeCharacters("abcba", "abc"));
+        assertEquals(1, streamSolution.rearrangeCharacters("abbaccaddaeea", "aaaaa"));
     }
 }
