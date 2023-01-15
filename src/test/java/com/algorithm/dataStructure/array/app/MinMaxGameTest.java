@@ -8,6 +8,9 @@ public class MinMaxGameTest {
 
     @Test
     public void minMaxGame() {
+        MinMaxGame.InPlacementSolution inPlacementSolution = new MinMaxGame.InPlacementSolution();
+        assertEquals(1, inPlacementSolution.minMaxGame(new int[]{1, 3, 5, 2, 4, 8, 2, 2}));
+        assertEquals(3, inPlacementSolution.minMaxGame(new int[]{3}));
         MinMaxGame.RecursionSolution recursionSolution = new MinMaxGame.RecursionSolution();
         assertEquals(1, recursionSolution.minMaxGame(new int[]{1, 3, 5, 2, 4, 8, 2, 2}));
         assertEquals(3, recursionSolution.minMaxGame(new int[]{3}));
