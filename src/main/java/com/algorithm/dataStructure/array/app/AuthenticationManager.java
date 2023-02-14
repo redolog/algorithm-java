@@ -1,6 +1,8 @@
 package com.algorithm.dataStructure.array.app;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * https://leetcode.cn/problems/design-authentication-manager/
@@ -11,58 +13,118 @@ public class AuthenticationManager {
 
     private int timeToLive;
 
-    private Map<String, Integer> tokenId2InsertTime;
-
-    private List<String> tokenIdInOrder;
+    // 链表首尾
+    NodeEntry head, tail;
+    private Map<String, NodeEntry> tokenId2Node;
 
     public AuthenticationManager(int timeToLive) {
         this.timeToLive = timeToLive;
-        this.tokenId2InsertTime = new HashMap<>();
-        this.tokenIdInOrder = new ArrayList<>();
+        this.tokenId2Node = new HashMap<>();
+        this.head = new NodeEntry();
+        this.tail = new NodeEntry();
+        head.next = tail;
+        tail.prev = head;
     }
 
+    /**
+     * O(1)
+     */
     public void generate(String tokenId, int currentTime) {
-        tokenId2InsertTime.put(tokenId, currentTime);
-        tokenIdInOrder.add(tokenId);
+        // 链表原位置原地删除，链表尾部添加新元素
+        removeNode(tokenId2Node.get(tokenId));
+        insertNode(new NodeEntry(tokenId, currentTime));
     }
 
-    public void expire(String tokenId) {
-        Iterator<String> iterator = tokenIdInOrder.iterator();
-        while (iterator.hasNext()) {
-            String id = iterator.next();
-            tokenId2InsertTime.remove(id);
-            iterator.remove();
-            if (id.equals(tokenId)) {
-                break;
-            }
+    private void insertNode(NodeEntry newNode) {
+        if (newNode == null) {
+            return;
+        }
+        tail.prev.next = newNode;
+        newNode.prev = tail.prev;
+        newNode.next = tail;
+        tail.prev = newNode;
+
+        tokenId2Node.put(newNode.tokenId, newNode);
+    }
+
+    private void removeNode(NodeEntry oldNode) {
+        if (oldNode == null) {
+            return;
+        }
+        oldNode.prev.next = oldNode.next;
+        oldNode.next.prev = oldNode.prev;
+        tokenId2Node.remove(oldNode.tokenId);
+    }
+
+    public void expire(NodeEntry curr) {
+        while (curr != null && !curr.equals(head)) {
+            removeNode(curr);
+            curr = curr.prev;
         }
     }
 
+    /**
+     * 对存活entry续期；
+     * 清理过期entry；
+     * 不存在的entry直接忽略；
+     */
     public void renew(String tokenId, int currentTime) {
-        Integer insertTime = tokenId2InsertTime.get(tokenId);
-        if (insertTime != null) {
-            if (insertTime + timeToLive > currentTime) {
-                // 依旧存活，续期
-                tokenId2InsertTime.put(tokenId, currentTime);
-            } else {
-                // 过期，删除entry，同时将时间序列递增的前序entry都删除
-                expire(tokenId);
-            }
+        NodeEntry oldNode = tokenId2Node.get(tokenId);
+        if (oldNode == null) {
+            // 不存在，不管了
+            return;
         }
-        // 不存在，不管了
+        if (oldNode.insertTime + timeToLive > currentTime) {
+            // 依旧存活，续期
+            removeNode(oldNode);
+            insertNode(new NodeEntry(tokenId, currentTime));
+        } else {
+            // 过期，删除entry，同时将时间序列递增的前序entry都删除
+            expire(oldNode);
+        }
     }
 
+    /**
+     * O(n)
+     * 同时清理过期entry
+     */
     public int countUnexpiredTokens(int currentTime) {
-        int cnt = 0;
-        Iterator<Map.Entry<String, Integer>> iterator = tokenId2InsertTime.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, Integer> entry = iterator.next();
-            if (entry.getValue() + timeToLive > currentTime) {
-                cnt++;
-            } else {
-                iterator.remove();
-            }
+        NodeEntry curr = head.next;
+        while (curr != null && !curr.equals(tail) && curr.insertTime + timeToLive <= currentTime) {
+            expire(curr);
+            curr = curr.next;
         }
-        return cnt;
+        return tokenId2Node.size();
+    }
+
+    static class NodeEntry {
+        int insertTime;
+        String tokenId;
+        // 链表前序、后继指针
+        NodeEntry prev, next;
+
+        public NodeEntry(String tokenId, int insertTime) {
+            this.insertTime = insertTime;
+            this.tokenId = tokenId;
+        }
+
+        public NodeEntry() {
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof NodeEntry)) return false;
+            NodeEntry nodeEntry = (NodeEntry) o;
+            if (insertTime != nodeEntry.insertTime) return false;
+            return Objects.equals(tokenId, nodeEntry.tokenId);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = insertTime;
+            result = 31 * result + (tokenId != null ? tokenId.hashCode() : 0);
+            return result;
+        }
     }
 }
