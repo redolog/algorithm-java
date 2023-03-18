@@ -1,4 +1,4 @@
-package com.algorithm.string;
+package com.algorithm.string.palindrome;
 
 /**
  * https://leetcode.cn/problems/valid-palindrome/
