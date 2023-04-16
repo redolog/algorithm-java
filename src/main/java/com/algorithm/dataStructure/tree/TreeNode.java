@@ -2,10 +2,7 @@ package com.algorithm.dataStructure.tree;
 
 import com.algorithm.util.ArrayUtils;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 二叉树节点
@@ -183,7 +180,7 @@ public class TreeNode {
             return false;
         }
         TreeNode treeNode = (TreeNode) o;
-        return val == treeNode.val && ((left == null && treeNode.left == null) || (left != null && left.val == treeNode.left.val)) && ((right == null && treeNode.right == null) || (right != null && right.val == treeNode.right.val));
+        return val == treeNode.val && ((left == null && treeNode.left == null) || (left != null && left.equals(treeNode.left))) && ((right == null && treeNode.right == null) || (right != null && right.equals(treeNode.right)));
     }
 
     @Override
@@ -194,5 +191,25 @@ public class TreeNode {
     @Override
     public String toString() {
         return "TreeNode{" + "val=" + val + ", left=" + (null == left ? "null" : left.val) + ", right=" + (null == right ? "null" : right.val) + '}';
+    }
+
+    public static void print(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            for (int i = queue.size(); i > 0; i--) {
+                TreeNode node = queue.poll();
+                System.out.print(node.val);
+                System.out.print("-->");
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            System.out.println();
+        }
     }
 }
