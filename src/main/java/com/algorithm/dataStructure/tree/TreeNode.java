@@ -2,7 +2,9 @@ package com.algorithm.dataStructure.tree;
 
 import com.algorithm.util.ArrayUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 二叉树节点
@@ -180,12 +182,9 @@ public class TreeNode {
             return false;
         }
         TreeNode treeNode = (TreeNode) o;
-        return val == treeNode.val && ((left == null && treeNode.left == null) || (left != null && left.equals(treeNode.left))) && ((right == null && treeNode.right == null) || (right != null && right.equals(treeNode.right)));
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(val, left, right);
+        return val == treeNode.val
+                && ((left == null && treeNode.left == null) || (left != null && left.val == treeNode.left.val))
+                && ((right == null && treeNode.right == null) || (right != null && right.val == treeNode.right.val));
     }
 
     @Override
@@ -211,5 +210,10 @@ public class TreeNode {
             }
             System.out.println();
         }
+    }
+
+    public boolean isSameTree(TreeNode other) {
+        IsSameTree isSameTree = new IsSameTree();
+        return isSameTree.isSameTree(this, other);
     }
 }
