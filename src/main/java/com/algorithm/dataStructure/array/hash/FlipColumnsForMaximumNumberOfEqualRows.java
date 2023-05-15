@@ -22,23 +22,16 @@ public class FlipColumnsForMaximumNumberOfEqualRows {
     public int maxEqualRowsAfterFlips(int[][] matrix) {
         return Arrays.stream(matrix)
                 .map(row -> {
-                    int start = row[0];
                     StringBuilder builder = new StringBuilder();
                     for (int c : row) {
-                        if (start == 1) {
-                            builder.append(c == 0 ? 1 : 0);
-                        } else {
-                            builder.append(c);
-                        }
-                        builder.append("_");
+                        builder.append(row[0] ^ c);
                     }
-                    builder.deleteCharAt(builder.length() - 1);
                     return builder.toString();
                 })
-                .collect(Collectors.toMap(key -> key, key -> 1, Integer::sum))
+                .collect(Collectors.groupingBy(key -> key, Collectors.counting()))
                 .values()
                 .stream()
                 .max(Comparator.naturalOrder())
-                .orElse(-1);
+                .get().intValue();
     }
 }
