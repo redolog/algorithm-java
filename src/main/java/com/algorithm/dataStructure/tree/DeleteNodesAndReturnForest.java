@@ -13,50 +13,45 @@ import java.util.Set;
 public class DeleteNodesAndReturnForest {
 
     Set<Integer> toDeleteSet;
-    Set<TreeNode> rootSet;
+    List<TreeNode> ans;
 
     public List<TreeNode> delNodes(TreeNode root, int[] toDelete) {
         toDeleteSet = new HashSet<>();
-        rootSet = new HashSet<>();
+        ans = new ArrayList<>();
         for (int val : toDelete) {
             toDeleteSet.add(val);
         }
-        dfs(root, null, null);
-        return new ArrayList<>(rootSet);
+        TreeNode rootRet = dfs(root);
+        if (rootRet != null) {
+            ans.add(rootRet);
+        }
+        return ans;
     }
 
-    private void dfs(TreeNode node, TreeNode root, TreeNode curr) {
+    /**
+     * @param node 当前节点
+     * @return 使用返回值表达当前节点所在树的被删除结果
+     */
+    private TreeNode dfs(TreeNode node) {
         if (node == null) {
-            addRoot(root);
-            return;
+            // 已经到了树底
+            return null;
         }
-        if (toDeleteSet.contains(node.val)) {
-            dfs(node.left, null, null);
-            dfs(node.right, null, null);
-        } else {
-            if (root == null) {
-                root = new TreeNode(node.val);
-                curr = root;
-            }
-            if (node.left != null && !toDeleteSet.contains(node.left.val)) {
-                curr.left = new TreeNode(node.left.val);
-            }
-            if (node.right != null && !toDeleteSet.contains(node.right.val)) {
-                curr.right = new TreeNode(node.right.val);
-            }
-            if (node.left != null && node.right != null && toDeleteSet.contains(node.left.val) && toDeleteSet.contains(node.right.val)) {
-                addRoot(root);
-            }
-
-            dfs(node.left, root, curr.left);
-            dfs(node.right, root, curr.right);
+        node.left = dfs(node.left);
+        node.right = dfs(node.right);
+        // 当前节点存活
+        if (!toDeleteSet.contains(node.val)) {
+            return node;
         }
-    }
-
-    private void addRoot(TreeNode root) {
-        if (root != null) {
-            rootSet.add(root);
+        // 当前节点不能存活，靠他的左右子孙了
+        if (node.left != null) {
+            ans.add(node.left);
         }
+        if (node.right != null) {
+            ans.add(node.right);
+        }
+        // 当前节点+左右子都判断完了
+        return null;
     }
 
 }
