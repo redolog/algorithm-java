@@ -1,4 +1,4 @@
-package com.algorithm.dataStructure.array.diff;
+package com.algorithm.dataStructure.array.preSum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +22,7 @@ public class CountVowelStringsInRanges {
         }};
     }
 
-    static class DiffArraySolution {
+    static class PreSumSolution {
         public int[] vowelStrings(String[] words, int[][] queries) {
             int n = words.length;
             int[] diffArr = new int[n + 1];
