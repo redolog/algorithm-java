@@ -91,35 +91,38 @@ public class TreeNode {
      * 按层构建普通二叉树
      */
     public static TreeNode buildAnyWithArr(Integer[] arr) {
-        if (ArrayUtils.isEmpty(arr)) {
+        if (ArrayUtils.isEmpty(arr) || arr[0] == null) {
             return null;
         }
 
-        // 存原数组数字信息
-        Queue<Integer> arrQueue = new LinkedList<>(Arrays.asList(arr));
-        // 存构建节点信息
-        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        // 维护层序
+        Queue<TreeNode> queue = new LinkedList<>();
 
-        Integer rootNum = arrQueue.poll();
-        if (rootNum == null) {
-            return null;
-        }
+        // i遍历入参数组
+        int i = 0, n = arr.length;
+        Integer rootNum = arr[i];
         TreeNode root = new TreeNode(rootNum);
-        nodeQueue.offer(root);
+        queue.offer(root);
 
-        while (!nodeQueue.isEmpty()) {
-            // 从 nodeQueue 拿出当前待处理节点
-            TreeNode node = nodeQueue.poll();
+        i++;
+        while (!queue.isEmpty()) {
+            // 从 queue 拿出当前待处理节点
+            TreeNode node = queue.poll();
             if (node == null) {
                 // 空节点直接跳过
                 continue;
             }
-            // 从原数组拿出上述节点对应的子节点，入队 nodeQueue 待下次执行
-            Integer leftNum = arrQueue.poll();
-            nodeQueue.offer(node.left = leftNum == null ? null : new TreeNode(leftNum));
-
-            Integer rightNum = arrQueue.poll();
-            nodeQueue.offer(node.right = rightNum == null ? null : new TreeNode(rightNum));
+            // 从原数组拿出上述节点对应的子节点，入队 queue 待下次执行
+            if (i < n && arr[i] != null) {
+                Integer leftNum = arr[i];
+                queue.offer(node.left = new TreeNode(leftNum));
+            }
+            i++;
+            if (i < n && arr[i] != null) {
+                Integer rightNum = arr[i];
+                queue.offer(node.right = new TreeNode(rightNum));
+            }
+            i++;
         }
         return root;
     }
@@ -216,4 +219,23 @@ public class TreeNode {
         IsSameTree isSameTree = new IsSameTree();
         return isSameTree.isSameTree(this, other);
     }
+
+    public static TreeNode buildWithVals(Integer[] vals) {
+        if (vals == null || vals[0] == null) {
+            return null;
+        }
+        return buildWithVals(vals, 0);
+    }
+
+    private static TreeNode buildWithVals(Integer[] vals, int i) {
+        TreeNode node = null;
+        if (i >= vals.length || vals[i] == null) {
+            return node;
+        }
+        node = new TreeNode(vals[i]);
+        node.left = buildWithVals(vals, 2 * i + 1);
+        node.right = buildWithVals(vals, 2 * i + 2);
+        return node;
+    }
+
 }
