@@ -32,7 +32,7 @@ public class FindMinimumQuantityOfCarsTest {
         };
         int n = testCaseArr.length;
         for (int i = 0; i < n; i++) {
-//            assertEquals(ansArr[i], binarySearchCollectionSolution.findMinimumQuantityOfCars(testCaseArr[i]));
+            assertEquals(ansArr[i], binarySearchCollectionSolution.findMinimumQuantityOfCars(testCaseArr[i]));
             assertEquals(ansArr[i], bucketSortSolution.findMinimumQuantityOfCars(testCaseArr[i]));
         }
     }

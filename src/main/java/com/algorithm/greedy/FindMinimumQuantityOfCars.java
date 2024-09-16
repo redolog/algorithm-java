@@ -101,7 +101,7 @@ public class FindMinimumQuantityOfCars {
                 int remainWeight = 300;
                 // 每辆车尽可能装满
                 // 从大的货物开始装
-                for (int i = weight2Cnt.length - 1; i >= 0; i--) {
+                for (int i = remainWeight - 100; i >= 0; i--) {
                     int currWeight = i + 100;
                     if (remainWeight < currWeight || weight2Cnt[i] == 0) {
                         // 当前货物太重了，看下一个比较轻的
