@@ -1,5 +1,6 @@
 package com.algorithm.dataStructure.tree.bst.majorityElement;
 
+
 import com.algorithm.dataStructure.tree.TreeNode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,4 +16,5 @@ public class FindModeInBinarySearchTreeTest {
         Assert.assertArrayEquals(ans1, ansMapCnt);
         Assert.assertArrayEquals(ans1, ansInOrderBST);
     }
+
 }
