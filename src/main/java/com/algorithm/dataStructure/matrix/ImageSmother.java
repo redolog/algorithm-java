@@ -76,43 +76,4 @@ public class ImageSmother {
         }
     }
 
-    static class PreSumSolution {
-        public int[][] imageSmoother(int[][] img) {
-            int m = img.length;
-            int n = img[0].length;
-            // preSum[r][c] 表示 (0,0)到(r,c)的所有单元格的和
-            int[][] preSum = new int[m][n];
-            for (int x = 0; x < m; x++) {
-                for (int y = 0; y < n; y++) {
-                    if (x == 0 && y == 0) {
-                        preSum[x][y] = img[x][y];
-                    } else {
-                        // x,y的左上角点
-                        int x1 = Math.max(x - 1, 0);
-                        int y1 = Math.max(y - 1, 0);
-//                     (0,2)
-//                     (0,1)
-                        preSum[x][y] = img[x][y] + preSum[x1][y] + preSum[x][y1] - preSum[x1][y1];
-                    }
-                }
-            }
-
-            int[][] ans = new int[m][n];
-            for (int x = 0; x < m; x++) {
-                for (int y = 0; y < n; y++) {
-                    // x,y的左上角点
-                    int x1 = Math.max(x - 1, 0);
-                    int y1 = Math.max(y - 1, 0);
-                    // x,y的右下角点
-                    int x2 = Math.min(x + 1, m - 1);
-                    int y2 = Math.min(y + 1, n - 1);
-                    int sum = preSum[x2][y2] - preSum[x1][y1] - preSum[x1][y] + preSum[x][y1];
-                    int cnt = (x2 - x1 + 1) * (y2 - y1 + 1);
-                    ans[x][y] = sum / cnt;
-                }
-            }
-            return ans;
-        }
-    }
-
 }
