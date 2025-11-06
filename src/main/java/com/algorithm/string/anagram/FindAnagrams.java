@@ -12,7 +12,7 @@ public class FindAnagrams {
 
     /**
      * 滑动窗口复杂度：
-     * 时间：O(sn) 仅需遍历一次s长度
+     * 时间：O(sn * pn) 仅需遍历一次s长度，每次窗口内判断p子串是否异位词
      * 空间：O(1) 仅维护常量
      */
     public List<Integer> findAnagrams(String s, String p) {
