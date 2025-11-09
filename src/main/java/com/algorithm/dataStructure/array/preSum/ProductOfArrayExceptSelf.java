@@ -50,7 +50,7 @@ public class ProductOfArrayExceptSelf {
                 ans[i] = product;
             }
             product = 1;
-            // 从右往左遍历，ans每个元素乘以
+            // 从右往左遍历，ans每个元素乘以后缀乘积
             for (int i = 1; i < n; i++) {
                 int r = n - 1 - i;
                 product *= nums[r + 1];
