@@ -11,6 +11,9 @@ import java.util.List;
  * @author songhuilong  @date 2025/11/9
  */
 public class DecodeString {
+    
+    // 核心思想：
+    // 以左右括号为一组的边界，遇到右括号之前，数字与字母入栈，遇到右括号之后，开始从栈取出前序元素处理
 
     public String decodeString(String s) {
         // 数字判定：c-'0' >=0 && c-'0' <=9
