@@ -7,29 +7,35 @@ package com.algorithm.dataStructure.tree;
  */
 public class SecondMinimumNodeInABinaryTree {
 
+    // 算法概述：对树进行完整遍历，维护根节点值（树最小值），查找剩余元素中大于根值且最小的值，即为第二小的值
+
+    // 根节点值
+    int rootVal;
+    // 更新答案
     int ans;
 
-    int min;
-
-    boolean found;
-
     public int findSecondMinimumValue(TreeNode root) {
-        min = root.val;
-        ans = Integer.MAX_VALUE;
-        found = false;
+        rootVal = root.val;
+        ans = -1;
+
         dfs(root);
-        return found ? ans : -1;
+
+        return ans;
     }
 
-    private void dfs(TreeNode curr) {
-        if (curr == null) {
+    private void dfs(TreeNode node) {
+        if (node == null) {
             return;
         }
-        if (curr.val > min && ans >= curr.val) {
-            ans = curr.val;
-            found = true;
+        // 任意遍历顺序，只需要完整一次树即可
+        dfs(node.left);
+        dfs(node.right);
+
+        if (node.val > rootVal) {
+            // 在大于根节点值的范围中筛选
+            // 1. ans值初始的情况，直接更新；
+            // 2. ans值非初始的情况，取相对更新过的值更小的值；
+            ans = ans == -1 ? node.val : Math.min(ans, node.val);
         }
-        dfs(curr.left);
-        dfs(curr.right);
     }
 }
