@@ -1,6 +1,9 @@
 package com.algorithm.dataStructure.array.slidingWindow;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero/
  *
@@ -39,5 +42,39 @@ public class MinimumOperationsReduceToX {
             sum -= nums[l];
         }
         return ans == -1 ? ans : n - ans;
+    }
+
+    static class PreSumSolution {
+        public int minOperations(int[] nums, int x) {
+            // 解法2：维护前缀和，数组总和为sum，给定x，通过两段前缀和差值来检索和为 sum-x 的子数组段
+            // 由于题目求最小操作数，对应我们要寻找和为sum-x的最长子数组，因此前缀和映射同时维护出现的最早下标
+            int n = nums.length;
+            int sum = 0;
+            for (int num : nums) {
+                sum += num;
+            }
+            int ans = -1;
+            if (sum < x) {
+                return ans;
+            }
+            if (sum == x) {
+                return n;
+            }
+            Map<Integer, Integer> prefixSum2EarliestIdx = new HashMap<>();
+            prefixSum2EarliestIdx.put(0, -1);
+            int prefixSum = 0;
+            for (int i = 0; i < n; i++) {
+                prefixSum += nums[i];
+                prefixSum2EarliestIdx.putIfAbsent(prefixSum, i);
+
+                Integer earliestIdx = prefixSum2EarliestIdx.get(prefixSum - sum + x);
+
+                if (earliestIdx != null) {
+                    ans = Math.max(ans, i - earliestIdx);
+                }
+            }
+            return ans == -1 ? ans : n - ans;
+
+        }
     }
 }
