@@ -1,5 +1,8 @@
 package com.algorithm.dataStructure.tree;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/
  *
@@ -12,6 +15,29 @@ public class FlattenBinaryTreeToLinkedList {
 
     public void flatten(TreeNode curr) {
         dfs(curr);
+    }
+
+    private void mockPreOrderWithStk(TreeNode curr){
+        if(curr == null){
+            return;
+        }
+        // 先序遍历：根-左-右
+        Deque<TreeNode> stk = new ArrayDeque<>();
+        stk.offerLast(curr);
+        while(!stk.isEmpty()){
+            curr = stk.pollLast();
+            if(pre != null){
+                pre.left = null;
+                pre.right = curr;
+            }
+            pre = curr;
+            if(curr.right != null){
+                stk.offerLast(curr.right);
+            }
+            if(curr.left != null){
+                stk.offerLast(curr.left);
+            }
+        }
     }
 
     // dfs返回当前子树展开后的尾节点
